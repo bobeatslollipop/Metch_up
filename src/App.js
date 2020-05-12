@@ -29,7 +29,7 @@ function App() {
   function loggedIn() {
     return (
       <>
-        <Nav.Link href="/message">Message</Nav.Link>
+        <Nav.Link href="/">Dashboard</Nav.Link>
         <Nav.Link href="/search">Class search</Nav.Link>
         <NavDropdown title="Account" id="basic-nav-dropdown">
           <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}>Logout</NavDropdown.Item>

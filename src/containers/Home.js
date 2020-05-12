@@ -104,10 +104,11 @@ export default function Home(props) {
     var message = <span><strong>Welcome, {name}.</strong></span>;
     return (
       <Container className="notes">
-          <h4>Let's play around with your dashboard to find study groups.</h4>
-          <ListGroup>
-            {!isLoading && renderClassList()}
-          </ListGroup>
+        <h1>{message}</h1>
+        <h4>Let's play around with your dashboard to find study groups.</h4>
+        <ListGroup>
+          {!isLoading && renderClassList()}
+        </ListGroup>
       </Container>
     );
   }
