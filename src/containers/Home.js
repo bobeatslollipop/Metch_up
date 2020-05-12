@@ -37,9 +37,7 @@ export default function Home(props) {
     <>
       <LinkContainer key="new" to="/search">
         <ListGroupItem>
-          <h4>
             <b>{"\uFF0B"}</b> Add a new class
-          </h4>
         </ListGroupItem>
       </LinkContainer>
 
