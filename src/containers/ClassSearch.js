@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, ListGroupItem, Row, Col, Button } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Row, Col, Button, Container } from "react-bootstrap";
 import data from "../data/4770/courses.json";
 import { useState } from 'react';
 import "./ClassSearch.css";
@@ -58,12 +58,12 @@ export default function ClassSearch(props) {
   }
 
   return (
-    <div>
+    <Container>
       <ListGroup>
         <input type="text" placeholder="Enter class to search" style={elementStyle} onChange={e => setInput(e.target.value)} block />
         {courses}
         <h4>{search_text}</h4>
       </ListGroup>
-    </div>
+    </Container>
   );
 }

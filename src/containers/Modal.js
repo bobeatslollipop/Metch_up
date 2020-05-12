@@ -22,7 +22,7 @@ export default function ClassModal(props) {
 
     return (
         <>
-          <Button variant="outline-dark-lg" onClick={handleShow}>
+          <Button block variant="outline-primary" onClick={handleShow}>
             {props.name}
           </Button>
          

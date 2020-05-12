@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, ListGroupItem, Button, Col} from "react-bootstrap";
+import { ListGroup, ListGroupItem, Button, Col, Row, Container} from "react-bootstrap";
 import "./Home.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
@@ -34,7 +34,7 @@ export default function Home(props) {
 
   function renderClassList() {
     return(
-    <div>
+    <>
       <LinkContainer key="new" to="/search">
         <ListGroupItem>
           <h4>
@@ -49,12 +49,10 @@ export default function Home(props) {
 
       <LinkContainer to={path}>
         <ListGroupItem>
-          <h4>
             <b>{"\uFF0B"}</b> Send Message
-          </h4>
         </ListGroupItem>
       </LinkContainer>
-    </div>
+    </>
     );
   }
 
@@ -79,12 +77,14 @@ export default function Home(props) {
     return(
     <>
       <ListGroupItem key={clsId.toString()}>
-        <Col md={11}>
-          <ClassModal name={searchClassAttribute(clsId)} id={clsId}/>
-        </Col>
-        <Col md={{ span: 4, offset: 4 }}>
-          <Button onClick={()=>handleClick(clsId)}>Delete</Button>
-        </Col>
+        <Row>
+          <Col md={4}>
+            <ClassModal name={searchClassAttribute(clsId)} id={clsId}/>
+          </Col>
+          <Col md={{ span: 1, offset: 6 }}>
+            <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>
+          </Col>
+        </Row>
       </ListGroupItem>
     </>
     );
@@ -103,14 +103,12 @@ export default function Home(props) {
   function renderDashboard() {
     var message = <span><strong>Welcome, {name}.</strong></span>;
     return (
-      <div className="notes">
-        {//<PageHeader>{message}</PageHeader>
-  }
-        <h4>Let's play around with your dashboard to find study groups.</h4>
-        <ListGroup>
-          {!isLoading && renderClassList()}
-        </ListGroup>
-      </div>
+      <Container className="notes">
+          <h4>Let's play around with your dashboard to find study groups.</h4>
+          <ListGroup>
+            {!isLoading && renderClassList()}
+          </ListGroup>
+      </Container>
     );
   }
 

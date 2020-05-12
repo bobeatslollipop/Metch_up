@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { db } from "../firebase";
 import "./Message.css";
 
@@ -80,9 +80,9 @@ export default function Message(props) {
   }
 
   return (
-    <div className="Message">
+    <Container className="Message">
       {renderUserInfo()}
       {renderForm()}
-    </div>
+    </Container>
   );
 }
