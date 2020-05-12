@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup, ListGroupItem, Button, Col, Row, Container} from "react-bootstrap";
+import { Link } from 'react-router-dom';
+import { ListGroup, ListGroupItem, Button, Col, Row, Container, Jumbotron, Badge} from "react-bootstrap";
 import "./Home.css";
 import { LinkContainer } from "react-router-bootstrap";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
@@ -32,6 +33,20 @@ export default function Home(props) {
     query: name,
   }
 
+  function searchClassAttribute(id){
+    for(var i = 0; i < courseData.length; i++){
+      if(courseData[i].id == id){
+        var classAttribute = courseData[i].subject + " " + courseData[i].catalog_num;
+        return classAttribute;
+      }
+    }
+  }
+
+  function handleClick(props){
+    deleteClassFromUser(props, Auth.currentUser.email);
+    setIsLoading(true);
+  }
+
   function renderClassList() {
     return(
     <>
@@ -44,29 +59,8 @@ export default function Home(props) {
       <ListGroup>
         {classes.map(clsId => renderClass(clsId))}
       </ListGroup>
-
-      <LinkContainer to={path}>
-        <ListGroupItem>
-            <b>{"\uFF0B"}</b> Send Message
-        </ListGroupItem>
-      </LinkContainer>
     </>
     );
-  }
-
-  function searchClassAttribute(id){
-    for(var i = 0; i < courseData.length; i++){
-      if(courseData[i].id == id){
-        var classAttribute = courseData[i].subject + " " + courseData[i].catalog_num;
-        return classAttribute;
-      }
-    }
-  }
-
-  function handleClick(props){
-    //console.log("呃呃，还是删除"+props+"吧");
-    deleteClassFromUser(props, Auth.currentUser.email);
-    setIsLoading(true);
   }
 
   function renderClass(clsId){
@@ -90,20 +84,30 @@ export default function Home(props) {
 
   function renderLander() {
     return (
-      <div className="lander">
+      <Container className="lander">
         <h1>Metchup</h1>
         <p>A simple way to find study partner</p>
-      </div>
+      </Container>
     );
   }
-
 
   function renderDashboard() {
     var message = <span><strong>Welcome, {name}.</strong></span>;
     return (
-      <Container className="notes">
-        <h1>{message}</h1>
-        <h4>Let's play around with your dashboard to find study groups.</h4>
+      <Container className="welcome">
+        <Row>
+          <Col md={10}>
+            <h1>{message}</h1>
+            <h4>Let's play around with your dashboard to find study groups.</h4>
+          </Col>
+          <Col md={2}>
+            <Link to={path}>
+            <Button variant="primary">
+              Message <Badge variant="light">0</Badge>
+            </Button>
+            </Link>
+          </Col>
+        </Row>
         <ListGroup>
           {!isLoading && renderClassList()}
         </ListGroup>
@@ -113,8 +117,8 @@ export default function Home(props) {
 
 
   return (
-    <div className="Home">
+    <Container className="Home">
       {Auth.currentUser ? renderDashboard() : renderLander()}
-    </div>
+    </Container>
   );
 }

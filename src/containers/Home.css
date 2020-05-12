@@ -12,14 +12,13 @@
   color: #999;
 }
 
-.Home .notes h4 {
-  font-family: "Open Sans", sans-serif;
-  font-weight: 600;
+.Home .welcome h4 {
+  padding: 5px;
   overflow: hidden;
-  line-height: 1.5;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.Home .notes p {
-  color: #666;
+.Home .welcome {
+  margin-top: 10px;
+  border-radius: 25px;
 }
