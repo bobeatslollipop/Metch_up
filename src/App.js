@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Routes from "./Routes";
 import { Auth, getUserById } from "./firebase";
 import "./App.css";
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 function App(props) {
   const [name, setName] = useState(null);
@@ -33,11 +34,11 @@ function App(props) {
         />{' '}
         <strong class="BrandText">Metchup</strong>
       </Navbar.Brand>
-      <Nav>
+      
         {user
         ? loggedIn()
         : notLoggedIn()}
-      </Nav>
+      
     </Navbar>
     </Container>
     
@@ -45,8 +46,8 @@ function App(props) {
   </>);
 
   function loggedIn() {
-    return (
-      <>
+    return (<>
+      <Nav>
         <Nav.Link href="/search" className="NavText">Class search</Nav.Link>
         <NavDropdown title="Account" className="NavText">
           <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}class="navBarText">
@@ -56,22 +57,24 @@ function App(props) {
             User center
           </NavDropdown.Item>
         </NavDropdown>
-        <Navbar.Collapse className="justify-content-end">
-          <Link to="/message">
-            <Button variant="primary">Message 
-              <Badge variant="light">0</Badge>
-            </Button>
-          </Link>
-        </Navbar.Collapse>
+      </Nav>
+
+      <NavbarCollapse className="justify-content-end">
+        <Link to="/message">
+          <Button variant="primary">Message 
+            <Badge variant="light">0</Badge>
+          </Button>
+        </Link>
+      </NavbarCollapse>
       </>);
   }
 
   function notLoggedIn() {
     return (
-      <>
+      <Nav>
         <Nav.Link href="/signup">Signup</Nav.Link>
         <Nav.Link href="/login">Login</Nav.Link>
-      </>
+      </Nav>
     );
   }
 }
