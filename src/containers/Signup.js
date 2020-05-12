@@ -5,6 +5,13 @@ import "./Signup.css";
 import { Auth, db } from "../firebase"
 
 export default function Signup(props) {
+  Auth.onAuthStateChanged(() => {
+    if (Auth.currentUser) {
+      alert("Already logged in!");
+      props.history.replace('/');
+    }
+  });
+
   const [fields, handleFieldChange] = useFormFields({
     name: "",
     email: "",

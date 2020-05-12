@@ -8,12 +8,12 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  Auth.onAuthStateChanged(() => {
     if (Auth.currentUser) {
-      alert("Already logged in!");
-      props.history.replace("/");
+      console.log("Logged in as " + email);
+      props.history.replace('/');
     }
-  }, [])
+  });
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -24,10 +24,6 @@ export default function Login(props) {
     setIsLoading(true);
 
     Auth.signInWithEmailAndPassword(email, password)
-    .then(() => {
-      console.log("Logged in as " + email);
-      props.history.replace('/');
-    })
     .catch(err => alert(err));
     setIsLoading(false);
   }
