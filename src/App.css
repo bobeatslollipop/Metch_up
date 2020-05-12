@@ -10,3 +10,6 @@
 .messageButton {
   text-align: right;
 }
+.MessageBadge {
+  margin-left: 5px;
+}
