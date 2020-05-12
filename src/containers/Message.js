@@ -9,7 +9,7 @@ export default function Message(props) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const user = props.location.query;
+  const user = props.name;
 
   async function handleSubmit(event) {
     event.preventDefault();

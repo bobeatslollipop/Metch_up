@@ -10,11 +10,11 @@ import Message from "./containers/Message";
 export default function Routes(appProps) {
     return (
       <Switch>
-        <Route exact path="/" component={Home} appProps={appProps} />
-        <Route exact path="/login" component={Login} appProps={appProps} />
-        <Route exact path="/signup" component={Signup} appProps={appProps} />
-        <Route exact path="/search" component={ClassSearch} appProps={appProps} />
-        <Route exact path="/message" component={Message} appProps={appProps} />
+        <Route exact path="/" render={(props) => <Home {...props} {...appProps} />}/>
+        <Route exact path="/login" render={(props) => <Login {...props} {...appProps} />}/>
+        <Route exact path="/signup" render={(props) => <Signup {...props} {...appProps} />}/>
+        <Route exact path="/search" render={(props) => <ClassSearch {...props} {...appProps} />}/>
+        <Route exact path="/message" render={(props) => <Message {...props} {...appProps} />}/>
 
         { /* Finally, catch all unmatched routes */ }
         <Route component={NotFound} />
