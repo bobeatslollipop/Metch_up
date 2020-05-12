@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, ListGroupItem, Row, Col, Button, Container, FormControl } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Row, Col, Button, Container, FormControl, InputGroup } from "react-bootstrap";
 import data from "../data/4770/courses.json";
 import { useState } from 'react';
 import "./ClassSearch.css";
@@ -33,8 +33,8 @@ export default function ClassSearch(props) {
     <ListGroupItem  key={(course.id).toString()} className="Course" style={elementStyle}>
       <Row>
           <Col className="course-info" sm={9}>
-              <h4 className="course-title"><strong>{course.subject} {course.catalog_num}: {course.title} </strong></h4>
-              <h5 className="course-name"style={{color: 'grey'}}>{course.topic}</h5>
+              <h4 className="course-title"><strong>{course.subject} {course.catalog_num}</strong>: {course.title} </h4>
+              <h5 className="course-name">{course.topic}</h5>
               <h6 className="course-term">{course.termId}</h6>
               <h6 className="course-instructor">{course.instructor}</h6>
               <h6 className="course-section"> Section {course.section}</h6>
@@ -60,12 +60,17 @@ export default function ClassSearch(props) {
   return (
     <Container>
       <ListGroup>
-        <FormControl
-          aria-label="Default"
-          aria-describedby="inputGroup-sizing-default"
-          onChange={e => setInput(e.target.value)}
-          placeholder="Enter class to search"
-        />
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text id="basic-addon1">Search</InputGroup.Text>
+          </InputGroup.Prepend>
+          <FormControl
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+            onChange={e => setInput(e.target.value)}
+            placeholder="Enter keywords"
+          />
+        </InputGroup>
         {courses}
         <h4>{search_text}</h4>
       </ListGroup>
