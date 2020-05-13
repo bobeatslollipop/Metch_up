@@ -33,12 +33,6 @@ export default function Home(props) {
     setIsLoading(false);
   }
 
-  //pass user to /message
-  var path = {
-    pathname: '/message',
-    query: name,
-  }
-
   function searchClassAttribute(id){
     for(var i = 0; i < courseData.length; i++){
       if(courseData[i].id == id){
