@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Col } from "react-bootstrap";
+import { Modal, Button, Col, ListGroup, ListGroupItem} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { getUserByClass } from "../firebase"
 
 
@@ -17,7 +18,12 @@ export default function ClassModal(props) {
       .then(data => setList(
         data
         .filter(user => user.id != props.userId)  //filter the array without current user
-        .map((user) => <p>{user.id}</p>)
+        .map((user) => 
+        <LinkContainer key="message" to="/message">
+          <ListGroupItem key={user.id}>
+            {user.id}
+            </ListGroupItem>
+        </LinkContainer>)
         ))
       .catch(err => alert(err));
     }
@@ -35,7 +41,9 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                {list}
+                <ListGroup>
+                  {list}
+                </ListGroup>               
               </Modal.Body>
             <Modal.Footer>
               <Button variant="outline-secondary" onClick={handleClose}>
