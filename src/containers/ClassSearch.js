@@ -9,25 +9,25 @@ export default function ClassSearch(props) {
 
   const [input, setInput] = useState(null);
 
-  const elementStyle ={
-    borderRadius:'5px',
-    position:'relative',
-    marginTop:'5px',
-    marginBottom:'10px'
-  }
 
   function includes(course){
-    return (course.title && course.title.toLowerCase().includes(input.toLowerCase()))
+    return (
+    course.title && course.title.toLowerCase().includes(input.toLowerCase()))
     || (course.subject && course.subject.toLowerCase().includes(input.toLowerCase()))
     || (course.catalog_num && course.catalog_num.toLowerCase().includes(input.toLowerCase()))
     || (course.topic && course.topic.toLowerCase().includes(input.toLowerCase()))
     || (course.instructor && course.instructor.toLowerCase().includes(input.toLowerCase()));
   }
-
+  const elementStyle = {
+    borderRadius:'10px',
+    position:'relative',
+    marginTop:'5px',
+    marginBottom:'10px'
+  }
   const courses = data.filter(course => {
     return !input || (course && includes(course));
   })
-  .slice(0,50)
+  .slice(0,25)
   .map(course => {
     return(
     <ListGroupItem  key={(course.id).toString()} className="Course" style={elementStyle}>
@@ -50,8 +50,8 @@ export default function ClassSearch(props) {
     )
   });
 
-  var search_text = "These are the first 50 results containing '" + input + "'. Please narrow your search.";
-  if (courses.length && courses.length < 50) {
+  var search_text = "These are the first 25 results containing '" + input + "'. Please narrow your search.";
+  if (courses.length && courses.length < 25) {
     search_text = courses.length + " results. "
   } else if (courses.length === 0) {
     search_text = "No result."
@@ -60,7 +60,7 @@ export default function ClassSearch(props) {
   return (
     <Container>
       <ListGroup>
-        <InputGroup>
+        <InputGroup className="Search">
           <InputGroup.Prepend>
             <InputGroup.Text id="basic-addon1">Search</InputGroup.Text>
           </InputGroup.Prepend>
