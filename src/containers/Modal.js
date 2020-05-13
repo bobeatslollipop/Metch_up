@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button,Col } from "react-bootstrap";
-import {getUserByClass} from "../firebase"
+import { Modal, Button, Col } from "react-bootstrap";
+import { getUserByClass } from "../firebase"
+
+
+
 
 export default function ClassModal(props) {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
-    const handleShow = () => {setShow(true); ClassContent(props);}
+    const handleShow = () => setShow(true);
 
-    function ClassContent(props){
-      console.log("props.name is "+props.name +", props.id is "+props.id);
-      var userList = getUserByClass(props.id);
-      console.log(userList);
-      // userList.map(user=>{
-      //   return(
-      //   <p>user</p>
-      //   )
-      // });
+    const [list, setList] = useState(null);
+    useEffect(() => {onLoad()}, []);
+
+    async function onLoad() {
+      await getUserByClass(props.id)
+      .then(data => setList(
+        data.map((user) => <p>{user.id}</p>)
+        ))
+      .catch(err => alert(err));
     }
  
 
@@ -32,11 +34,7 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
+                {list}
               </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>

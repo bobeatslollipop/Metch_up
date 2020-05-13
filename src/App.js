@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
-import { Nav, Navbar, NavItem, NavDropdown, Form, FormControl, Button
-, Container } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Nav, Navbar, NavDropdown, Button, Container, Badge } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import Routes from "./Routes";
-import { Auth } from "./firebase";
+import { Auth, getUserById } from "./firebase";
 import "./App.css";
+import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 function App(props) {
-  const [isAuth, setIsAuth] = useState(Boolean(Auth.currentUser));
-  Auth.onAuthStateChanged(() => setIsAuth(Boolean(Auth.currentUser)));
+  const [name, setName] = useState(null);
+  const [user, setUser] = useState(Auth.currentUser);
 
+  Auth.onAuthStateChanged(() => setUser(Auth.currentUser));
+  useEffect(() => {onLoad()}, [user]);
+
+  async function onLoad() {
+    if (Auth.currentUser) 
+    { 
+      await getUserById(Auth.currentUser.email)
+      .then(data => setName(data.name))
+      .catch(err => alert(err));
+    }
+  }
 
   return (<>
     <Container>
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" expand="lg" >
       <Navbar.Brand href="/">
         <img
         alt=""
@@ -20,36 +32,49 @@ function App(props) {
         width="30"
         height="30"
         />{' '}
-        <strong id="logo">Metchup</strong>
+        <strong class="BrandText">Metchup</strong>
       </Navbar.Brand>
-      <Nav className="Links">
-        {isAuth
+      
+        {user
         ? loggedIn()
         : notLoggedIn()}
-      </Nav>
+      
     </Navbar>
     </Container>
     
-    <Routes />
+    <Routes {...props} name={name} user={user}/>
   </>);
 
   function loggedIn() {
-    return (
-      <>
-        <Nav.Link href="/search">Class search</Nav.Link>
-        <NavDropdown title="Account">
-          <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}>Logout</NavDropdown.Item>
-          <NavDropdown.Item href="/login">User center</NavDropdown.Item>
+    return (<>
+      <Nav>
+        <Nav.Link href="/search" className="NavText">Class search</Nav.Link>
+        <NavDropdown title="Account" className="NavText">
+          <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}class="navBarText">
+            Logout
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/login" className="NavBarText">
+            User center
+          </NavDropdown.Item>
         </NavDropdown>
+      </Nav>
+
+      <NavbarCollapse className="justify-content-end">
+        <Link to="/message">
+          <Button variant="outline-secondary">Message   
+            <Badge className="MessageBadge" variant="dark"> 0 </Badge>
+          </Button>
+        </Link>
+      </NavbarCollapse>
       </>);
   }
 
   function notLoggedIn() {
     return (
-      <>
+      <Nav>
         <Nav.Link href="/signup">Signup</Nav.Link>
         <Nav.Link href="/login">Login</Nav.Link>
-      </>
+      </Nav>
     );
   }
 }

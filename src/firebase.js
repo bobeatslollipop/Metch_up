@@ -35,15 +35,13 @@ export async function getUserById(userId){
 
 //returns several person data enrolling in the queried classId
 export async function getUserByClass(classId){
-    var retDoc;
-    await db.collection("Users").where("classes", "array-contains", classId.toString()).get().then(function(doc) {
-        if (doc.exists) {
-            console.log("getUserByClass returns Document data:", doc.data());
-            retDoc = doc.data();
-        } else {
-            console.log("No such user in "+classId.toString()+"!");
-        }
-    }).catch(err => handleErr(err));
+    var retDoc =[];
+    await db.collection("Users").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            if (doc.data().classes.includes(classId.toString()))
+                retDoc.push(doc);
+        });
+    });
     return retDoc;
 }
 

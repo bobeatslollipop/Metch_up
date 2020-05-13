@@ -9,15 +9,21 @@ import courseData from "../data/4770/courses.json";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(props.name);
   const [classes, setClasses] = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(props.user);
 
   useEffect(() => {onLoad()}, [isLoading, user]);
-  Auth.onAuthStateChanged(() => setUser(Auth.currentUser));
+  Auth.onAuthStateChanged(() => { 
+    if (user !== Auth.currentUser) 
+      setUser(Auth.currentUser);
+  });
 
   async function onLoad() {
-    if (!Auth.currentUser) { return; }
+    if (!Auth.currentUser) { 
+      setName(null);
+      return; 
+    }
     await getUserById(Auth.currentUser.email)
     .then(data => {
       setName(data.name);
@@ -29,7 +35,7 @@ export default function Home(props) {
 
   //pass user to /message
   var path = {
-    pathname:'/message',
+    pathname: '/message',
     query: name,
   }
 
@@ -99,13 +105,6 @@ export default function Home(props) {
           <Col md={10}>
             <h1>{message}</h1>
             <h4>Let's play around with your dashboard to find study groups.</h4>
-          </Col>
-          <Col md={2}>
-            <Link to={path}>
-            <Button variant="primary">
-              Message <Badge variant="light">0</Badge>
-            </Button>
-            </Link>
           </Col>
         </Row>
         <ListGroup>

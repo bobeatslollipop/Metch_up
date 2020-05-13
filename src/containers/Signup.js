@@ -57,7 +57,6 @@ export default function Signup(props) {
       alert(e);
       setIsLoading(false);
     });
-    // 确认邮箱之类的放弃了
   }
   
   function renderForm() {

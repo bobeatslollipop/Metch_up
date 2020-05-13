@@ -1,6 +1,15 @@
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
-.Links {
-  color: black;
+.BrandText {
+  font-size: 1.2em;
+}
+.NavText {
+  font-size: 1.1em;
+}
+.messageButton {
+  text-align: right;
+}
+.MessageBadge {
+  margin-left: 5px;
 }
