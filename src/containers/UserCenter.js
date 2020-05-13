@@ -29,10 +29,10 @@ export default function UserCenter(props) {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  lol
+                  Hello
                 </Tab.Pane>
                 <Tab.Pane eventKey="second">
-                  lmao
+                  What
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
                   Northwestern University
