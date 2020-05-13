@@ -2,21 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Modal, Button,Col } from "react-bootstrap";
 import {getUserByClass} from "../firebase"
 
+
+
+
 export default function ClassModal(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => {setShow(true); ClassContent(props);}
-
+  
     function ClassContent(props){
       console.log("props.name is "+props.name +", props.id is "+props.id);
       var userList = getUserByClass(props.id);
-      console.log(userList);
-      // userList.map(user=>{
-      //   return(
-      //   <p>user</p>
-      //   )
-      // });
+      console.log("returning result "+ userList);
+      // return(
+      //   <>
+      //     {userList.map(user => <p>user</p>)}
+      //   </>
+      // );
     }
  
 
@@ -32,11 +35,7 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
-                <p>abc@u.northwestern.edu</p>
+                {ClassContent(props)}
               </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
