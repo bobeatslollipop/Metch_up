@@ -22,7 +22,8 @@ function App(props) {
     }
   }
 
-  return (<>
+  return (
+  <>
     <Container className="NavContainer">
     <Navbar bg="light" expand="lg" className="NavBar">
       <Navbar.Brand  href="/">
@@ -44,7 +45,8 @@ function App(props) {
     </Container>
     
     <Routes {...props} name={name} user={user}/>
-  </>);
+  </>
+  );
 
   function loggedIn() {
     return (<>
