@@ -17,7 +17,7 @@ export default function ClassModal(props) {
       await getUserByClass(props.id)
       .then(data => setList(
         data
-        .filter(user => user.id != props.userId)  //filter the array without current user
+        .filter(user => user.id !== props.userId)  //filter the array without current user
         .map((user) => 
         <LinkContainer key="message" to="/message">
           <ListGroupItem key={user.id}>
