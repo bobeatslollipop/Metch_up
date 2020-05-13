@@ -72,7 +72,7 @@ export default function ClassSearch(props) {
           />
         </InputGroup>
         {courses}
-        <Alert variant="dark" style={{textAlign: "center"}}>{search_text}</Alert>
+        <Alert variant="dark" style={{textAlign: "center", borderRadius: "10px"}}>{search_text}</Alert>
       </ListGroup>
     </Container>
   );
