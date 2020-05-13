@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Navbar, NavDropdown, Button, Container, Badge } from "react-bootstrap";
+import { Nav, Navbar, Button, Container, Badge } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import Routes from "./Routes";
 import { Auth, getUserById } from "./firebase";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Col, ListGroup, ListGroupItem, Container} from "react-bootstrap";
+import { Modal, Button, Col, ListGroup, Container} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { getUserByClass } from "../firebase"
 
@@ -21,9 +21,9 @@ export default function ClassModal(props) {
         .filter(user => user.id !== props.userId)  //filter the array without current user
         .map((user) => 
         <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-          <ListGroupItem key={user.id}>
+          <ListGroup.Item key={user.id}>
             {user.id}
-            </ListGroupItem>
+          </ListGroup.Item>
         </LinkContainer>)
         ))
       .catch(err => alert(err));

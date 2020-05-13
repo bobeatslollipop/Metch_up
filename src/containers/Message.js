@@ -9,7 +9,7 @@ export default function Message(props) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  //这里传props的时候最好写清楚一点是什么user。另外，自己的信息可以用App传进来的userName和userObj。
+  //这里传props的时候最好写清楚一点是什么user。
   const user = props.name;
   const sendTo = props.location.aboutProps;
   if (sendTo){
@@ -76,7 +76,6 @@ export default function Message(props) {
               block
               type="submit"
               isLoading={isLoading}>
-              {/*bsSize和bsStyle好像没用，能用的参数可以参照bootstrap教程*/}
               Send
             </Button>
           </form>

@@ -26,3 +26,8 @@
   margin-top: 15px;
   border-radius: 25px;
 }
+/*Or some other things to make it look like a button*/
+.AddClass:hover {
+  color: rgb(54, 89, 172);
+  cursor: pointer;
+}

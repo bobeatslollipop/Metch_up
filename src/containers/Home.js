@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { ListGroup, ListGroupItem, Button, Col, Row, Container, Jumbotron, Badge} from "react-bootstrap";
+import { ListGroup, Button, Col, Row, Container } from "react-bootstrap";
 import "./Home.css";
-import { LinkContainer } from "react-router-bootstrap";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
 import ClassModal from './Modal'
 import courseData from "../data/4770/courses.json";
@@ -50,23 +48,20 @@ export default function Home(props) {
   function renderClassList() {
     return(
     <>
-      <LinkContainer key="new" to="/search">
-        <ListGroupItem key="AddClass">
-            <b>{"\uFF0B"}</b> Add a new class
-        </ListGroupItem>
-      </LinkContainer>
+      <ListGroup.Item href="/search" key="AddClass" className="AddClass">
+        <b>{"\uFF0B"}</b> Add a new class
+      </ListGroup.Item>
 
-      <ListGroup>
-        {classes.map(clsId => renderClass(clsId))}
-      </ListGroup>
+      {classes.map(clsId => renderClass(clsId))}
     </>
     );
   }
 
   function renderClass(clsId){
+    // 下面的ClassModal也需要一个key
     return(
     <>
-      <ListGroupItem key={clsId.toString()}>
+      <ListGroup.Item key={clsId.toString()}>
         <Row>
           <Col md={4}>
             <ClassModal name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
@@ -75,7 +70,7 @@ export default function Home(props) {
             <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>
           </Col>
         </Row>
-      </ListGroupItem>
+      </ListGroup.Item>
     </>
     );
   }
