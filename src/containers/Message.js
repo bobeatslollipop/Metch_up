@@ -9,7 +9,14 @@ export default function Message(props) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  //这里传props的时候最好写清楚一点是什么user。
   const user = props.name;
+  const sendTo = props.location.aboutProps;
+  if (sendTo){
+    console.log(sendTo);
+  } else {
+    console.log("Not from the class modal.");
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -68,10 +75,7 @@ export default function Message(props) {
             <Button
               block
               type="submit"
-              bsSize="large"
-              bsStyle="primary"
               isLoading={isLoading}>
-              {/*bsSize和bsStyle好像没用，能用的参数可以参照bootstrap教程*/}
               Send
             </Button>
           </form>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Col } from "react-bootstrap";
+import { Modal, Button, Col, ListGroup, Container} from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import { getUserByClass } from "../firebase"
 
 
@@ -16,7 +17,14 @@ export default function ClassModal(props) {
     async function onLoad() {
       await getUserByClass(props.id)
       .then(data => setList(
-        data.map((user) => <p>{user.id}</p>)
+        data
+        .filter(user => user.id !== props.userId)  //filter the array without current user
+        .map((user) => 
+        <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
+          <ListGroup.Item key={user.id}>
+            {user.id}
+          </ListGroup.Item>
+        </LinkContainer>)
         ))
       .catch(err => alert(err));
     }
@@ -34,13 +42,16 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                {list}
+                <Container><p>Find a partner from the list below.</p></Container>
+                <ListGroup>
+                  {list}
+                </ListGroup>               
               </Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={handleClose}>
+              <Button variant="outline-secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="outline-primary" onClick={handleClose}>
                 Join the group
               </Button>
             </Modal.Footer>

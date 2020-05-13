@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Nav, Navbar, NavDropdown, Button, Container, Badge } from "react-bootstrap";
+import { Nav, Navbar, Button, Container, Badge } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import Routes from "./Routes";
 import { Auth, getUserById } from "./firebase";
@@ -14,54 +14,58 @@ function App(props) {
   useEffect(() => {onLoad()}, [user]);
 
   async function onLoad() {
-    if (Auth.currentUser) 
-    { 
+    if (Auth.currentUser)
+    {
       await getUserById(Auth.currentUser.email)
       .then(data => setName(data.name))
       .catch(err => alert(err));
     }
   }
 
-  return (<>
-    <Container>
-    <Navbar bg="light" expand="lg" >
+  return (
+  <>
+    <Container className="NavContainer">
+    <Navbar bg="light" expand="lg" className="NavBar">
       <Navbar.Brand href="/">
         <img
+        className="Logo"
         alt=""
         src="agreement.svg"
         width="30"
         height="30"
         />{' '}
-        <strong class="BrandText">Metchup</strong>
+        <strong className="BrandText">Metchup</strong>
       </Navbar.Brand>
-      
+
         {user
         ? loggedIn()
         : notLoggedIn()}
-      
+
     </Navbar>
     </Container>
-    
-    <Routes {...props} name={name} user={user}/>
-  </>);
+
+    <Routes {...props} userName={name} userObj={user}/>
+  </>
+  );
 
   function loggedIn() {
     return (<>
-      <Nav>
-        <Nav.Link href="/search" className="NavText">Class search</Nav.Link>
-        <NavDropdown title="Account" className="NavText">
-          <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}class="navBarText">
-            Logout
-          </NavDropdown.Item>
-          <NavDropdown.Item href="/login" className="NavBarText">
-            User center
-          </NavDropdown.Item>
-        </NavDropdown>
-      </Nav>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <NavbarCollapse>
+        <Nav.Link href="/search" className="NavText">
+          Class search
+        </Nav.Link>
+        <Nav.Link href="/usercenter" className="NavText">
+          User center
+        </Nav.Link>
+        <Nav.Link href="/" onClick={() => Auth.signOut()} className="NavText">
+          Logout
+        </Nav.Link>
+      </NavbarCollapse>
 
       <NavbarCollapse className="justify-content-end">
         <Link to="/message">
-          <Button variant="outline-secondary">Message   
+          <Button variant="outline-secondary">Message
             <Badge className="MessageBadge" variant="dark"> 0 </Badge>
           </Button>
         </Link>

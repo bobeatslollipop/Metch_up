@@ -4,12 +4,39 @@
 .BrandText {
   font-size: 1.2em;
 }
+
+.NavContainer{
+  margin-top: 10px;
+}
+
+.NavBar{
+  border-radius: 10px;
+  border: 1px solid grey;
+}
 .NavText {
   font-size: 1.1em;
+  color: gray;
 }
+.BrandText:hover {
+  color: rgb(54, 89, 172);
+}
+
+.NavBarText {
+  font-size: 1.1em;
+  color: darkgray;
+}
+
+.NavDropdown {
+  font-size: 1.1em;
+  color: darkgray;
+}
+
 .messageButton {
   text-align: right;
 }
 .MessageBadge {
   margin-left: 5px;
+}
+.Logo {
+  margin-bottom: 6px;
 }

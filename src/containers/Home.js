@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { ListGroup, ListGroupItem, Button, Col, Row, Container, Jumbotron, Badge} from "react-bootstrap";
+import { ListGroup, Button, Col, Row, Container } from "react-bootstrap";
 import "./Home.css";
-import { LinkContainer } from "react-router-bootstrap";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
 import ClassModal from './Modal'
 import courseData from "../data/4770/courses.json";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [name, setName] = useState(props.name);
+  const [name, setName] = useState(props.userName);
   const [classes, setClasses] = useState([]);
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(props.userObj);
 
   useEffect(() => {onLoad()}, [isLoading, user]);
   Auth.onAuthStateChanged(() => { 
@@ -33,12 +31,6 @@ export default function Home(props) {
     setIsLoading(false);
   }
 
-  //pass user to /message
-  var path = {
-    pathname: '/message',
-    query: name,
-  }
-
   function searchClassAttribute(id){
     for(var i = 0; i < courseData.length; i++){
       if(courseData[i].id == id){
@@ -56,34 +48,29 @@ export default function Home(props) {
   function renderClassList() {
     return(
     <>
-      <LinkContainer key="new" to="/search">
-        <ListGroupItem>
-            <b>{"\uFF0B"}</b> Add a new class
-        </ListGroupItem>
-      </LinkContainer>
+      <ListGroup.Item href="/search" key="AddClass" className="AddClass">
+        <b>{"\uFF0B"}</b> Add a new class
+      </ListGroup.Item>
 
-      <ListGroup>
-        {classes.map(clsId => renderClass(clsId))}
-      </ListGroup>
+      {classes.map(clsId => renderClass(clsId))}
     </>
     );
   }
 
   function renderClass(clsId){
-    //pass the data?
-    //props.history.push(path);
+    // 下面的ClassModal也需要一个key
     return(
     <>
-      <ListGroupItem key={clsId.toString()}>
+      <ListGroup.Item key={clsId.toString()}>
         <Row>
           <Col md={4}>
-            <ClassModal name={searchClassAttribute(clsId)} id={clsId}/>
+            <ClassModal key={clsId.toString()} name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
           </Col>
-          <Col md={{ span: 1, offset: 6 }}>
+          <Col md={{ span: 2, offset: 6 }}>
             <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>
           </Col>
         </Row>
-      </ListGroupItem>
+      </ListGroup.Item>
     </>
     );
   }
@@ -98,13 +85,13 @@ export default function Home(props) {
   }
 
   function renderDashboard() {
-    var message = <span><strong>Welcome, {name}.</strong></span>;
+    var message = <span><strong>Welcome Back, {name}.</strong></span>;
     return (
-      <Container className="welcome">
+      <Container className="Welcome">
         <Row>
           <Col md={10}>
             <h1>{message}</h1>
-            <h4>Let's play around with your dashboard to find study groups.</h4>
+            <h4>Play around with your dashboard to find study groups.</h4>
           </Col>
         </Row>
         <ListGroup>
