@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Col, ListGroup, ListGroupItem} from "react-bootstrap";
+import { Modal, Button, Col, ListGroup, ListGroupItem, Container} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { getUserByClass } from "../firebase"
 
@@ -41,6 +41,7 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
+                <Container><p>Find a partner from the list below.</p></Container>
                 <ListGroup>
                   {list}
                 </ListGroup>               
