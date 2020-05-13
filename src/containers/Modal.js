@@ -13,14 +13,14 @@ export default function ClassModal(props) {
 
     const [list, setList] = useState(null);
     useEffect(() => {onLoad()}, []);
-    
+
     async function onLoad() {
       await getUserByClass(props.id)
       .then(data => setList(
         data
         .filter(user => user.id !== props.userId)  //filter the array without current user
         .map((user) => 
-        <LinkContainer key="message" to="/message">
+        <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
           <ListGroupItem key={user.id}>
             {user.id}
             </ListGroupItem>

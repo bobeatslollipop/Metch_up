@@ -14,19 +14,20 @@ function App(props) {
   useEffect(() => {onLoad()}, [user]);
 
   async function onLoad() {
-    if (Auth.currentUser) 
-    { 
+    if (Auth.currentUser)
+    {
       await getUserById(Auth.currentUser.email)
       .then(data => setName(data.name))
       .catch(err => alert(err));
     }
   }
 
-  return (<>
+  return (
+  <>
     <Container className="NavContainer">
     <Navbar bg="light" expand="lg" className="NavBar">
       <Navbar.Brand href="/">
-        <img 
+        <img
         className="Logo"
         alt=""
         src="agreement.svg"
@@ -35,16 +36,17 @@ function App(props) {
         />{' '}
         <strong className="BrandText">Metchup</strong>
       </Navbar.Brand>
-      
+
         {user
         ? loggedIn()
         : notLoggedIn()}
-      
+
     </Navbar>
     </Container>
-    
+
     <Routes {...props} userName={name} userObj={user}/>
-  </>);
+  </>
+  );
 
   function loggedIn() {
     return (<>
@@ -63,7 +65,7 @@ function App(props) {
 
       <NavbarCollapse className="justify-content-end">
         <Link to="/message">
-          <Button variant="outline-secondary">Message   
+          <Button variant="outline-secondary">Message
             <Badge className="MessageBadge" variant="dark"> 0 </Badge>
           </Button>
         </Link>
