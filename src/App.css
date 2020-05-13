@@ -6,7 +6,19 @@
 }
 .NavText {
   font-size: 1.1em;
+  color: darkgray;
 }
+
+.NavBarText {
+  font-size: 1.1em;
+  color: darkgray;
+}
+
+.NavDropdown {
+  font-size: 1.1em;
+  color: darkgray;
+}
+
 .messageButton {
   text-align: right;
 }

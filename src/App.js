@@ -48,17 +48,18 @@ function App(props) {
 
   function loggedIn() {
     return (<>
-      <Nav>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <NavbarCollapse>
         <Nav.Link href="/search" className="NavText">Class search</Nav.Link>
-        <NavDropdown title="Account" className="NavText">
-          <NavDropdown.Item href="/login" onClick={() => Auth.signOut()}class="navBarText">
+        <NavDropdown title="Account" className="NavDropdown" id="basic-nav-dropdown">
+          <NavDropdown.Item href="/login" onClick={() => Auth.signOut()} class="NavBarText">
             Logout
           </NavDropdown.Item>
           <NavDropdown.Item href="/login" className="NavBarText">
             User center
           </NavDropdown.Item>
         </NavDropdown>
-      </Nav>
+      </NavbarCollapse>
 
       <NavbarCollapse className="justify-content-end">
         <Link to="/message">
