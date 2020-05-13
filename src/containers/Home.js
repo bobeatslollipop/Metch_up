@@ -64,7 +64,7 @@ export default function Home(props) {
       <ListGroup.Item key={clsId.toString()}>
         <Row>
           <Col md={4}>
-            <ClassModal name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
+            <ClassModal key={clsId.toString()} name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
           </Col>
           <Col md={{ span: 2, offset: 6 }}>
             <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>

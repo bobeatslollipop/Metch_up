@@ -18,9 +18,7 @@
 
 .Home .Welcome h4 {
   padding: 5px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+ 
 }
 .Home .Welcome {
   margin-top: 15px;
