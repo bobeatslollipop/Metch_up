@@ -32,7 +32,7 @@ function App(props) {
         width="30"
         height="30"
         />{' '}
-        <strong class="BrandText">Metchup</strong>
+        <strong className="BrandText">Metchup</strong>
       </Navbar.Brand>
       
         {user

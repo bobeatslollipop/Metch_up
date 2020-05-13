@@ -57,7 +57,7 @@ export default function Home(props) {
     return(
     <>
       <LinkContainer key="new" to="/search">
-        <ListGroupItem>
+        <ListGroupItem key="AddClass">
             <b>{"\uFF0B"}</b> Add a new class
         </ListGroupItem>
       </LinkContainer>
@@ -79,7 +79,7 @@ export default function Home(props) {
           <Col md={4}>
             <ClassModal name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
           </Col>
-          <Col md={{ span: 1, offset: 6 }}>
+          <Col md={{ span: 2, offset: 6 }}>
             <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>
           </Col>
         </Row>

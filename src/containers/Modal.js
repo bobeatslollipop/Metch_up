@@ -12,7 +12,6 @@ export default function ClassModal(props) {
 
     const [list, setList] = useState(null);
     useEffect(() => {onLoad()}, []);
-    console.log(props.userId);
     async function onLoad() {
       await getUserByClass(props.id)
       .then(data => setList(
