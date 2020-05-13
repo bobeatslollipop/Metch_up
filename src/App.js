@@ -25,8 +25,9 @@ function App(props) {
   return (<>
     <Container>
     <Navbar bg="light" expand="lg" >
-      <Navbar.Brand href="/">
-        <img
+      <Navbar.Brand  href="/">
+        <img 
+        className="Logo"
         alt=""
         src="agreement.svg"
         width="30"
