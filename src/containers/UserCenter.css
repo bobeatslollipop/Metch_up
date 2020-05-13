@@ -1,20 +1,23 @@
-.nav-item{
+.UserCenter .nav-item{
     background-color: transparent;
-
+    border-radius: 5px;
 }
 
-.nav-link{
-    color:black;
+.UserCenter .nav-link{
+    color:rgba(0, 0, 0, 0.623);
+    border-radius: 5px;
 }
 
-.nav-link:hover{
+.UserCenter .nav-link:hover{
+    color: rgba(255, 255, 255, 0.808);
+    background-color: rgba(172, 169, 169, 0.514);
+    border-radius: 5px;
+}
+
+.UserCenter .nav-link.active{
     color: white;
-    background-color: grey;
-}
-
-.nav-link.active{
-    color: white;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    border-radius: 5px;
 }
 
 .a{
