@@ -12,11 +12,13 @@ export default function ClassModal(props) {
 
     const [list, setList] = useState(null);
     useEffect(() => {onLoad()}, []);
-
+    console.log(props.userId);
     async function onLoad() {
       await getUserByClass(props.id)
       .then(data => setList(
-        data.map((user) => <p>{user.id}</p>)
+        data
+        .filter(user => user.id != props.userId)  //filter the array without current user
+        .map((user) => <p>{user.id}</p>)
         ))
       .catch(err => alert(err));
     }
