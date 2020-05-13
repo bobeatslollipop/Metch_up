@@ -9,6 +9,7 @@ export default function Message(props) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  //这里传props的时候最好写清楚一点是什么user。另外，自己的信息可以用App传进来的userName和userObj。
   const user = props.name;
 
   async function handleSubmit(event) {

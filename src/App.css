@@ -11,10 +11,14 @@
 
 .NavBar{
   border-radius: 10px;
+  border: 1px solid grey;
 }
 .NavText {
   font-size: 1.1em;
   color: gray;
+}
+.BrandText:hover {
+  color: rgb(54, 89, 172);
 }
 
 .NavBarText {

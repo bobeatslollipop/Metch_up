@@ -9,9 +9,9 @@ import courseData from "../data/4770/courses.json";
 
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(true);
-  const [name, setName] = useState(props.name);
+  const [name, setName] = useState(props.userName);
   const [classes, setClasses] = useState([]);
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(props.userObj);
 
   useEffect(() => {onLoad()}, [isLoading, user]);
   Auth.onAuthStateChanged(() => { 
@@ -64,8 +64,6 @@ export default function Home(props) {
   }
 
   function renderClass(clsId){
-    //pass the data?
-    //props.history.push(path);
     return(
     <>
       <ListGroupItem key={clsId.toString()}>

@@ -25,7 +25,7 @@ function App(props) {
   return (<>
     <Container className="NavContainer">
     <Navbar bg="light" expand="lg" className="NavBar">
-      <Navbar.Brand  href="/">
+      <Navbar.Brand href="/">
         <img 
         className="Logo"
         alt=""
@@ -43,7 +43,7 @@ function App(props) {
     </Navbar>
     </Container>
     
-    <Routes {...props} name={name} user={user}/>
+    <Routes {...props} userName={name} userObj={user}/>
   </>);
 
   function loggedIn() {
