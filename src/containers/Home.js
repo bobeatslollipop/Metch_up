@@ -92,13 +92,13 @@ export default function Home(props) {
   }
 
   function renderDashboard() {
-    var message = <span><strong>Welcome, {name}.</strong></span>;
+    var message = <span><strong>Welcome Back, {name}.</strong></span>;
     return (
-      <Container className="welcome">
+      <Container className="Welcome">
         <Row>
           <Col md={10}>
             <h1>{message}</h1>
-            <h4>Let's play around with your dashboard to find study groups.</h4>
+            <h4>Play around with your dashboard to find study groups.</h4>
           </Col>
         </Row>
         <ListGroup>

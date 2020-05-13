@@ -4,9 +4,17 @@
 .BrandText {
   font-size: 1.2em;
 }
+
+.NavContainer{
+  margin-top: 10px;
+}
+
+.NavBar{
+  border-radius: 10px;
+}
 .NavText {
   font-size: 1.1em;
-  color: darkgray;
+  color: gray;
 }
 
 .NavBarText {

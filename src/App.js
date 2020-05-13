@@ -23,8 +23,8 @@ function App(props) {
   }
 
   return (<>
-    <Container>
-    <Navbar bg="light" expand="lg" >
+    <Container className="NavContainer">
+    <Navbar bg="light" expand="lg" className="NavBar">
       <Navbar.Brand  href="/">
         <img 
         className="Logo"
@@ -53,11 +53,11 @@ function App(props) {
         <Nav.Link href="/search" className="NavText">
           Class search
         </Nav.Link>
-        <Nav.Link href="/" onClick={() => Auth.signOut()} className="NavText">
-          Logout
-        </Nav.Link>
         <Nav.Link href="/login" className="NavText">
           User center
+        </Nav.Link>
+        <Nav.Link href="/" onClick={() => Auth.signOut()} className="NavText">
+          Logout
         </Nav.Link>
       </NavbarCollapse>
 

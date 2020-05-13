@@ -16,13 +16,13 @@
   color: #999;
 }
 
-.Home .welcome h4 {
+.Home .Welcome h4 {
   padding: 5px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.Home .welcome {
-  margin-top: 10px;
+.Home .Welcome {
+  margin-top: 15px;
   border-radius: 25px;
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { ListGroup, ListGroupItem, Row, Col, Button, Container, FormControl, InputGroup } from "react-bootstrap";
+import { ListGroup, ListGroupItem, Row, Col, Button, Container, FormControl, InputGroup, Alert } from "react-bootstrap";
 import data from "../data/4770/courses.json";
 import { useState } from 'react';
 import "./ClassSearch.css";
@@ -72,7 +72,7 @@ export default function ClassSearch(props) {
           />
         </InputGroup>
         {courses}
-        <h4>{search_text}</h4>
+        <Alert variant="dark" style={{textAlign: "center"}}>{search_text}</Alert>
       </ListGroup>
     </Container>
   );
