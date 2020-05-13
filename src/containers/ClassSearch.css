@@ -1,12 +1,16 @@
 .ClassSearch form {
-    padding-bottom: 15px;
-  }
+  padding-bottom: 15px;
+}
   
-  .ClassSearch form textarea {
-    height: 300px;
-    font-size: 24px;
-  }
+.ClassSearch form textarea {
+  height: 300px;
+  font-size: 24px;
+}
 
-.Search{
+.Search {
   margin-top: 10px;
+}
+
+.Course {
+  box-shadow: 0 1px 1px #dddddd;
 }

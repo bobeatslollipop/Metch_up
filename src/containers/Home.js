@@ -94,6 +94,7 @@ export default function Home(props) {
             <h4>Play around with your dashboard to find study groups.</h4>
           </Col>
         </Row>
+        
         <ListGroup>
           {!isLoading && renderClassList()}
         </ListGroup>

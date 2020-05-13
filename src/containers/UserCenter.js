@@ -13,7 +13,7 @@ export default function UserCenter(props) {
       <Jumbotron className="UserCenter">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row>
-            <Col sm={3}>
+            <Col sm={3} className="NavList">
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey="first">User Profile</Nav.Link>
