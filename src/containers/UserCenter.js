@@ -6,7 +6,8 @@ import { Auth } from "../firebase";
 
 export default function UserCenter(props) {
   //Any ideas what to put here?
-
+  //Username, Dorm, ClassYear, Major, Introduction
+  
   return (
     <Container className="UserCenter">
       

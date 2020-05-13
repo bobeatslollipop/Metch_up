@@ -55,7 +55,7 @@ function App(props) {
         <Nav.Link href="/search" className="NavText">
           Class search
         </Nav.Link>
-        <Nav.Link href="/login" className="NavText">
+        <Nav.Link href="/usercenter" className="NavText">
           User center
         </Nav.Link>
         <Nav.Link href="/" onClick={() => Auth.signOut()} className="NavText">
