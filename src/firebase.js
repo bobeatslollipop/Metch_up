@@ -39,7 +39,7 @@ export async function getUserByClass(classId){
     await db.collection("Users").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             if (doc.data().classes.includes(classId.toString()))
-            retDoc.push(doc.id);
+                retDoc.push(doc);
         });
     });
     return retDoc;

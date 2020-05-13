@@ -13,13 +13,13 @@ export default function Home(props) {
   const [classes, setClasses] = useState([]);
   const [user, setUser] = useState(props.user);
 
-  useEffect(() => {reLoad()}, [isLoading, user]);
+  useEffect(() => {onLoad()}, [isLoading, user]);
   Auth.onAuthStateChanged(() => { 
     if (user !== Auth.currentUser) 
       setUser(Auth.currentUser);
   });
 
-  async function reLoad() {
+  async function onLoad() {
     if (!Auth.currentUser) { 
       setName(null);
       return; 

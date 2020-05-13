@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button,Col } from "react-bootstrap";
-import {getUserByClass} from "../firebase"
+import { Modal, Button, Col } from "react-bootstrap";
+import { getUserByClass } from "../firebase"
 
 
 
 
 export default function ClassModal(props) {
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
-    const handleShow = () => {setShow(true); ClassContent(props);}
-  
-    function ClassContent(props){
-      console.log("props.name is "+props.name +", props.id is "+props.id);
-      var userList = getUserByClass(props.id);
-      console.log("returning result "+ userList);
-      // return(
-      //   <>
-      //     {userList.map(user => <p>user</p>)}
-      //   </>
-      // );
+    const handleShow = () => setShow(true);
+
+    const [list, setList] = useState(null);
+    useEffect(() => {onLoad()}, []);
+
+    async function onLoad() {
+      await getUserByClass(props.id)
+      .then(data => setList(
+        data.map((user) => <p>{user.id}</p>)
+        ))
+      .catch(err => alert(err));
     }
  
 
@@ -35,7 +34,7 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                {ClassContent(props)}
+                {list}
               </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
