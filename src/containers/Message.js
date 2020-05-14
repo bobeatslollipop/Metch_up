@@ -1,6 +1,7 @@
-import React, {useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
-import { db } from "../firebase";
+import React, {useState,useEffect } from "react";
+import { Form, Button, Container, ListGroup } from "react-bootstrap";
+import { db,getClassmateById } from "../firebase";
+import { LinkContainer } from "react-router-bootstrap";
 import "./Message.css";
 
 export default function Message(props) {
@@ -29,12 +30,32 @@ export default function Message(props) {
     console.log("Not from the class modal.");
   }
 
+  //load the mail list, get all classmates from all the enrolled classess
+  useEffect(() => {onLoad()}, []);
+
+  async function onLoad() {
+    //fix later, after we can get user's email from app.js.
+    await getClassmateById("tonyluo2023@u.northwestern.edu")
+    .then(data => setMails(
+      data
+      .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
+      .map((user) => 
+      <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
+        <ListGroup.Item key={user.id}>
+          {user.id}
+        </ListGroup.Item>
+      </LinkContainer>)
+      ))
+    .catch(err => alert(err));
+  }
+
+
+
   async function handleSubmit(event) {
     event.preventDefault();
     if (content.trim() === '') {
         return
     }
-
     //const timestamp = moment()
     //    .valueOf()
     //    .toString()
@@ -57,16 +78,21 @@ export default function Message(props) {
         alert(e);
         setIsLoading(false);
     });
-
-
   }
+
+
+
+
+
   function renderMails(){
     return (
       <div class="Mail list">
         <div class="Mail">
           <h5 class="course-title">Find your classmates below! </h5>
         </div>
-
+        <ListGroup>
+          {mails}
+        </ListGroup>
       </div>
 
     );
