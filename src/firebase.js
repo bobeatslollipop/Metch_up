@@ -51,9 +51,16 @@ export async function getClassmateById(userId){
     await db.collection("Users").doc(userId).get().then(function(doc) {
         var classes = doc.data().classes;
         for(let i =0;i<classes.length;i++){
-            retDoc = retDoc.concat(getUserByClass(classes[i]));
+            console.log("add class id "+classes[i]+"to the list.");
+
+                retDoc = retDoc.concat(getUserByClass(classes[i]));
+            
+            
         }
-    }).catch(err => handleErr(err));
+    }).then(alert("all classes successfully load.")).catch(err => handleErr(err));
+    for(let i =0;i<retDoc.length;i++){
+        console.log("classmates id "+i+" : "+retDoc[i]);
+    }
     return retDoc;
 }
 

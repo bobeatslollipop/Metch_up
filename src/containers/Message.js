@@ -42,6 +42,7 @@ export default function Message(props) {
       .map((user) => 
       <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
         <ListGroup.Item key={user.id}>
+        {console.log("add user"+user.id+"to the list")}
           {user.id}
         </ListGroup.Item>
       </LinkContainer>)
@@ -90,6 +91,7 @@ export default function Message(props) {
         <div class="Mail">
           <h5 class="course-title">Find your classmates below! </h5>
         </div>
+        // list all the mails from users' enrolled classes
         <ListGroup>
           {mails}
         </ListGroup>
