@@ -11,6 +11,7 @@ export default function Message(props) {
   //from app.js, show mail list.
   //from Modal.js, show message form.
   const [showMail, setShow] = useState(false);
+  var showlist = false;
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
   const [reciever,setReciever] = useState(null);
@@ -24,7 +25,7 @@ export default function Message(props) {
   if (sendTo){
     console.log("from class modal, the reciever is: "+sendTo);
   } else {
-    setShow(true);
+    showlist = true;
     console.log("Not from the class modal.");
   }
 
@@ -60,12 +61,16 @@ export default function Message(props) {
 
   }
   function renderMails(){
-    return {
+    return (
+      <div class="Mail list">
+        <div class="Mail">
+          <h5 class="course-title">Find your classmates below! </h5>
+        </div>
 
-    }
+      </div>
+
+    );
   }
-
-
 
   
   function renderForm(){
@@ -99,7 +104,7 @@ export default function Message(props) {
 
   return (
     <Container className="Message">
-      {showMail ? renderMails() : renderForm()}
+      {showlist ? renderMails() : renderForm()}
 
     </Container>
   );
