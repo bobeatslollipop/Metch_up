@@ -45,6 +45,18 @@ export async function getUserByClass(classId){
   return retDoc;
 }
 
+//return the classmates from all classess the user is currently enrolled in.
+export async function getClassmateById(userId){
+    var retDoc;
+    await db.collection("Users").doc(userId).get().then(function(doc) {
+        var classes = doc.data().classes;
+        for(let i =0;i<classes.length;i++){
+            retDoc.push(getUserByClass(classes[i]));
+        }
+    }).catch(err => handleErr(err));
+    return retDoc;
+}
+
 //adds class by classId to the person by the id
 export function addClassToUser(classId, id){
   db.collection("Users").doc(id).get().then(function(doc) {
