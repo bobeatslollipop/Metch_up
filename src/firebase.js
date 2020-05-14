@@ -47,11 +47,11 @@ export async function getUserByClass(classId){
 
 //return the classmates from all classess the user is currently enrolled in.
 export async function getClassmateById(userId){
-    var retDoc;
+    var retDoc = [];
     await db.collection("Users").doc(userId).get().then(function(doc) {
         var classes = doc.data().classes;
         for(let i =0;i<classes.length;i++){
-            retDoc.push(getUserByClass(classes[i]));
+            retDoc = retDoc.concat(getUserByClass(classes[i]));
         }
     }).catch(err => handleErr(err));
     return retDoc;
