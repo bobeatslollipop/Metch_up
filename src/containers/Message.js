@@ -10,7 +10,9 @@ export default function Message(props) {
   const [isLoading, setIsLoading] = useState(false);
 
   //这里传props的时候最好写清楚一点是什么user。
-  const user = props.name;
+  //sender passed by App.js
+  //sendTo passed by Modal.js
+  const sender = props.userName;
   const sendTo = props.location.aboutProps;
   if (sendTo){
     console.log(sendTo);
@@ -33,12 +35,12 @@ export default function Message(props) {
     db.collection("Messages").doc().set({
         content: content.trim(),
         //fix later 
-        idFrom: user,
-        idTo: 'andrewsu2023@u.northwestern.edu', 
+        idFrom: sender,
+        idTo: sendTo, 
         time:  ''//timestamp
 
     }).then(() => {
-        console.log("User '" +user + "' sent '" + user +"'message"+content);
+        console.log("User '" +sender + "' sent '" + sendTo +"'message"+content);
         props.history.push("/");
     })
     .catch(e => {
@@ -54,7 +56,7 @@ export default function Message(props) {
     return (
         <div class="User">
           <div class="user-info">
-            <h5 class="course-title">Reciever: {user} </h5>
+            <h5 class="course-title">Reciever: {sendTo} </h5>
            {// Display reciever's name, other info, and classes 
            }
           </div>
