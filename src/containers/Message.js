@@ -8,13 +8,24 @@ export default function Message(props) {
 
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  //from app.js, show mail list.
+  //from Modal.js, show message form.
+  const [showMail, setShow] = useState(false);
+  var showlist = false;
+  const [mails, setMails] = useState(null);
+  // only for the reciever selected from the mail list.
+  const [reciever,setReciever] = useState(null);
 
-  //这里传props的时候最好写清楚一点是什么user。
-  const user = props.name;
+
+
+  //sender passed by App.js
+  //sendTo passed by Modal.js
+  const sender = props.userName;
   const sendTo = props.location.aboutProps;
   if (sendTo){
-    console.log(sendTo);
+    console.log("from class modal, the reciever is: "+sendTo);
   } else {
+    showlist = true;
     console.log("Not from the class modal.");
   }
 
@@ -33,12 +44,12 @@ export default function Message(props) {
     db.collection("Messages").doc().set({
         content: content.trim(),
         //fix later 
-        idFrom: user,
-        idTo: 'andrewsu2023@u.northwestern.edu', 
+        idFrom: sender,
+        idTo: sendTo, 
         time:  ''//timestamp
 
     }).then(() => {
-        console.log("User '" +user + "' sent '" + user +"'message"+content);
+        console.log("User '" +sender + "' sent '" + sendTo +"'message"+content);
         props.history.push("/");
     })
     .catch(e => {
@@ -49,44 +60,52 @@ export default function Message(props) {
 
 
   }
-  function renderUserInfo() {
-
+  function renderMails(){
     return (
-        <div class="User">
-          <div class="user-info">
-            <h5 class="course-title">Reciever: {user} </h5>
-           {// Display reciever's name, other info, and classes 
-           }
-          </div>
+      <div class="Mail list">
+        <div class="Mail">
+          <h5 class="course-title">Find your classmates below! </h5>
         </div>
+
+      </div>
+
     );
   }
+
+  
   function renderForm(){
     return (
-        <div className="NewNote">
-          <form onSubmit={handleSubmit}>
-            <Form.Group controlId="content">
-              <Form.Control
-                value={content}
-                componentClass="textarea"
-                onChange={e => setContent(e.target.value)}
-              />
-            </Form.Group>
-            <Button
-              block
-              type="submit"
-              isLoading={isLoading}>
-              Send
-            </Button>
-          </form>
+      <div class="User">
+        <div class="user-info">
+          <h5 class="course-title">Sender: {sender} </h5>
+          <h5 class="course-title">Reciever: {sendTo} </h5>
+        {// Display reciever's name, other info, and classes 
+        }
         </div>
+
+        <form onSubmit={handleSubmit}>
+        <Form.Group controlId="content">
+          <Form.Control
+            value={content}
+            componentClass="textarea"
+            onChange={e => setContent(e.target.value)}
+          />
+        </Form.Group>
+        <Button
+          block
+          type="submit"
+          isLoading={isLoading}>
+          Send
+        </Button>
+        </form>
+      </div>
       );
   }
 
   return (
     <Container className="Message">
-      {renderUserInfo()}
-      {renderForm()}
+      {showlist ? renderMails() : renderForm()}
+
     </Container>
   );
 }
