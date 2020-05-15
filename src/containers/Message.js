@@ -1,8 +1,7 @@
 import React, {useState,useEffect } from "react";
 import { Form, Button, Container, ListGroup } from "react-bootstrap";
-import { db,getClassmateById } from "../firebase";
 import { LinkContainer } from "react-router-bootstrap";
-import { getUserByClass,getUserById } from "../firebase";
+import { db,getUserByClass,getUserById } from "../firebase";
 import "./Message.css";
 
 export default function Message(props) {
@@ -40,9 +39,22 @@ export default function Message(props) {
     await getUserById("tonyluo2023@u.northwestern.edu")
     .then(data => {
       setClasses(data.classes);
+      console.log("classes loaded in message.");
     }).catch(err => alert(err));
+
     var a = [];
-    for(let i =0;i<classes.length;i++){
+    
+    await Promise.all(classes.map(async (clsId) =>{ 
+      console.log("im here!!!!!");
+      await getUserByClass(clsId)
+      .then(data => {
+        setUsers(data);
+        a = a.concat(users);  
+      }).catch(err => alert(err));
+    }));
+/* 
+    for(let i =0;i<6;i++){
+      console.log("im here!!!!!");
       console.log("add class id "+classes[i]+"to the list.");
       await getUserByClass(classes[i])
       .then(data => {
@@ -50,7 +62,7 @@ export default function Message(props) {
       }).catch(err => alert(err));
       a = a.concat(users);  
     }
-
+ */
     setMails(
       a
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
