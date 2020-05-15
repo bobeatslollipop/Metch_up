@@ -23,7 +23,7 @@ Auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 export async function getUserById(userId){
   var retDoc;
   await db.collection("Users").doc(userId).get().then(function(doc) {
-    if (doc.exists()) {
+    if (doc.exists) {
       console.log("getUserById returns Document data:", doc.data());
       retDoc = doc.data();
     } else {
