@@ -23,7 +23,7 @@ Auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 export async function getUserById(userId){
   var retDoc;
   await db.collection("Users").doc(userId).get().then(function(doc) {
-    if (doc.exists()) {
+    if (doc.exists) {
       console.log("getUserById returns Document data:", doc.data());
       retDoc = doc.data();
     } else {
@@ -52,10 +52,7 @@ export async function getClassmateById(userId){
         var classes = doc.data().classes;
         for(let i =0;i<classes.length;i++){
             console.log("add class id "+classes[i]+"to the list.");
-
                 retDoc = retDoc.concat(getUserByClass(classes[i]));
-            
-            
         }
     }).then(alert("all classes successfully load.")).catch(err => handleErr(err));
     for(let i =0;i<retDoc.length;i++){

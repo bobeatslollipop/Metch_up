@@ -2,6 +2,7 @@ import React, {useState,useEffect } from "react";
 import { Form, Button, Container, ListGroup } from "react-bootstrap";
 import { db,getClassmateById } from "../firebase";
 import { LinkContainer } from "react-router-bootstrap";
+import { getUserByClass,getUserById } from "../firebase";
 import "./Message.css";
 
 export default function Message(props) {
@@ -16,6 +17,8 @@ export default function Message(props) {
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
   const [reciever,setReciever] = useState(null);
+  const [classes, setClasses] = useState([]);
+  const [users,setUsers] = useState([]);
 
 
 
@@ -32,12 +35,24 @@ export default function Message(props) {
 
   //load the mail list, get all classmates from all the enrolled classess
   useEffect(() => {onLoad()}, []);
-
   async function onLoad() {
-    //fix later, after we can get user's email from app.js.
-    await getClassmateById("tonyluo2023@u.northwestern.edu")
-    .then(data => setMails(
-      data
+    
+    await getUserById("tonyluo2023@u.northwestern.edu")
+    .then(data => {
+      setClasses(data.classes);
+    }).catch(err => alert(err));
+    var a = [];
+    for(let i =0;i<classes.length;i++){
+      console.log("add class id "+classes[i]+"to the list.");
+      await getUserByClass(classes[i])
+      .then(data => {
+        setUsers(data);
+      }).catch(err => alert(err));
+      a = a.concat(users);  
+    }
+
+    setMails(
+      a
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
       <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
@@ -46,10 +61,10 @@ export default function Message(props) {
           {user.id}
         </ListGroup.Item>
       </LinkContainer>)
-      ))
-    .catch(err => alert(err));
+      )
   }
 
+//fix later, after we can get user's email from app.js.
 
 
   async function handleSubmit(event) {
