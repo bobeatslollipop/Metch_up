@@ -16,6 +16,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 export const db = firebase.firestore();
 export const Auth = firebase.auth();
+
 // How long does login status last
 Auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
@@ -66,6 +67,7 @@ export function addClassToUser(classId, id){
   db.collection("Users").doc(id).get().then(function(doc) {
     var classes = doc.data().classes;
     var len = classes.length;
+    
     if(classes.includes(classId)) {
       alert("Class already exists!");
     } else if(len >= 6) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Col, ListGroup, Container} from "react-bootstrap";
+import { Modal, Button, Col, ListGroup, Container, InputGroup, FormControl} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { getUserByClass } from "../firebase"
 
@@ -12,6 +12,9 @@ export default function ClassModal(props) {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    var inGroup = false; //if a person is in a study group
+    
 
     useEffect(() => {onLoad()}, []);
 
@@ -41,7 +44,63 @@ export default function ClassModal(props) {
       )
         .catch(err => alert(err));
     }
- 
+
+    function GroupView(props){
+      return(
+        <Container>
+          <p>Connect with your partners!</p>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <InputGroup>
+                  <FormControl
+                    placeholder="When to meet"
+                  />
+                  <InputGroup.Append>
+                    <Button variant="outline-primary">Post</Button>
+                  </InputGroup.Append>
+                </InputGroup>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <InputGroup>
+                <FormControl
+                  placeholder="Zoom Link"
+                />
+                <InputGroup.Append>
+                  <Button variant="outline-primary">Post</Button>
+                </InputGroup.Append>
+              </InputGroup>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button variant="outline-primary" block>{"\uFF0B"}Message</Button>
+            </ListGroup.Item>
+          </ListGroup>
+        </Container>
+
+      );
+    }
+
+    function PeerView(props){
+      return(
+        <>
+          <Container><p>Find a partner from the list below.</p></Container>
+          <ListGroup>
+            {list}
+          </ListGroup> 
+        </> 
+      );
+    }
+    
+    function ModalView(props){
+      if (inGroup){
+        return(
+          <GroupView></GroupView>
+        );
+      } else {
+        return(
+          <PeerView></PeerView>
+        );
+      }
+    }
     return (
         <>
           <Button block variant="outline-primary" onClick={handleShow}>
@@ -53,10 +112,7 @@ export default function ClassModal(props) {
               <Modal.Title>{props.name} Class Info</Modal.Title>
             </Modal.Header>
               <Modal.Body>
-                <Container><p>Find a partner from the list below.</p></Container>
-                <ListGroup>
-                  {list}
-                </ListGroup>               
+                <ModalView></ModalView>            
               </Modal.Body>
             <Modal.Footer>
               <Button variant="outline-secondary" onClick={handleClose}>

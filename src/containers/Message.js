@@ -35,7 +35,7 @@ export default function Message(props) {
   //load the mail list, get all classmates from all the enrolled classess
   useEffect(() => {onLoad()}, []);
   async function onLoad() {
-    
+  
     await getUserById("tonyluo2023@u.northwestern.edu")
     .then(data => {
       setClasses(data.classes);
