@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Tab, Nav, Container, Jumbotron, Card, ListGroup } from "react-bootstrap";
+import { Col, Row, Tab, Nav, Container, Jumbotron, Card, ListGroup, Form, Button } from "react-bootstrap";
 import "./UserCenter.css";
 import { Auth } from "../firebase";
 
@@ -17,7 +17,7 @@ export default function UserCenter(props) {
                   <Nav.Link eventKey="first">User Profile</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="second" >Account Settings</Nav.Link>
+                  <Nav.Link eventKey="second" >Duh.</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="third" >About Us</Nav.Link>
@@ -45,7 +45,67 @@ export default function UserCenter(props) {
   );
 
   function Profile() {
-    return null;
+    return(
+      <Container style={{backgroundColor:"white", borderRadius:"15px", padding: "15px"}}>
+        <Container style={{textAlign: "center"}}>
+          <p><strong>User Profile</strong></p>
+        </Container>
+        <hr></hr>
+        <Form>
+          <Form.Row>
+            <Form.Group as={Col} controlId="formGridEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Group controlId="formGridMajor">
+            <Form.Label>Dorm/Residence</Form.Label>
+            <Form.Control placeholder="Economic, Computer Science, etc." />
+          </Form.Group>
+
+          <Form.Group controlId="formGridIntroduction">
+            <Form.Label>Introduce Yourself</Form.Label>
+            <Form.Control placeholder="Hi! I am a proud wildcat" />
+          </Form.Group>
+
+          <Form.Row>
+            <Form.Group as={Col} controlId="formGridResidence">
+              <Form.Label>Dorm/Residence</Form.Label>
+              <Form.Control />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridYear">
+              <Form.Label>Year</Form.Label>
+              <Form.Control as="select">
+                <option>Freshman</option>
+                <option>Sophomore</option>
+                <option>Junior</option>
+                <option>Senior</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridZip">
+              <Form.Label>Zip</Form.Label>
+              <Form.Control />
+            </Form.Group>
+          </Form.Row>
+
+          <Form.Group id="formGridCheckbox">
+            <Form.Check type="checkbox" label="Check me out" />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
+      </Container>
+    );
   }
 
   function CreatorInfo(prop){
