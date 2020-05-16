@@ -8,10 +8,10 @@ export default function UserCenter(props) {
 
   return (
     <Container>
-      <Jumbotron className="UserCenter">
+      <Jumbotron style={{marginTop: "25px"}} className="UserCenter">
         <Tab.Container id="left-tabs-example" defaultActiveKey="first">
           <Row>
-            <Col sm={3} className="NavList">
+            <Col sm={3} className="NavList" style={{height: "85%"}}>
               <Nav variant="pills" className="flex-column">
                 <Nav.Item>
                   <Nav.Link eventKey="first">User Profile</Nav.Link>
@@ -61,8 +61,7 @@ export default function UserCenter(props) {
               </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroup.Item>WCAS 23'</ListGroup.Item>
-              <ListGroup.Item>Major:Computer Science</ListGroup.Item>
+              <ListGroup.Item>WCAS 23' Computer Science</ListGroup.Item>
               <ListGroup.Item>Full-stack developer</ListGroup.Item>
             </ListGroup>
             <Card.Body>
@@ -83,7 +82,6 @@ export default function UserCenter(props) {
             <ListGroup className="list-group-flush">
               <ListGroup.Item>WCAS 23'</ListGroup.Item>
               <ListGroup.Item>Major:Computer Science</ListGroup.Item>
-              <ListGroup.Item>Frontend developer</ListGroup.Item>
             </ListGroup>
             <Card.Body>
               <Card.Link href="#">Github</Card.Link>
@@ -103,7 +101,6 @@ export default function UserCenter(props) {
             <ListGroup className="list-group-flush">
               <ListGroup.Item>WCAS 23'</ListGroup.Item>
               <ListGroup.Item>Major:Computer Science</ListGroup.Item>
-              <ListGroup.Item>Frontend developer</ListGroup.Item>
             </ListGroup>
             <Card.Body>
               <Card.Link href="#">Github</Card.Link>
