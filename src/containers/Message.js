@@ -26,7 +26,7 @@ export default function Message(props) {
   const sender = props.userName;
   const sendTo = props.location.aboutProps;
   if (sendTo){
-    console.log("from class modal, the reciever is: "+sendTo);
+    console.log("from class modal, the receiver is: "+sendTo);
   } else {
     showlist = true;
     console.log("Not from the class modal.");
