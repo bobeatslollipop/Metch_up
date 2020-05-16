@@ -8,8 +8,8 @@ import courseData from "../data/4770/courses.json";
 export default function Home(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [name, setName] = useState(props.userName);
-  const [classes, setClasses] = useState([]);
   const [user, setUser] = useState(props.userObj);
+  const [classes, setClasses] = useState([]);
 
   useEffect(() => {onLoad()}, [isLoading, user]);
   Auth.onAuthStateChanged(() => { 
@@ -58,7 +58,6 @@ export default function Home(props) {
   }
 
   function renderClass(clsId){
-    // 下面的ClassModal也需要一个key
     return(
     <>
       <ListGroup.Item key={clsId.toString()}>
