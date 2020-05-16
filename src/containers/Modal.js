@@ -16,7 +16,13 @@ export default function ClassModal(props) {
 
     async function onLoad() {
       await getUserByClass(props.id)
-      .then(data => setList(
+      .then(data => (data.length == 1)?
+      setList(
+          <ListGroup.Item key="nothing">
+            No Available Classmate.
+          </ListGroup.Item>
+      )
+      :setList(
         data
         .filter(user => user.id !== props.userId)  //filter the array without current user
         .map((user) => 
