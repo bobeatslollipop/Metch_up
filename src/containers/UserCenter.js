@@ -34,7 +34,7 @@ export default function UserCenter(props) {
                   What
                 </Tab.Pane>
                 <Tab.Pane eventKey="third">
-                  <CreatorInfo name="First Person"/>
+                  <CreatorInfo name="Zhuoran Su"/>
                 </Tab.Pane>
               </Tab.Content>
             </Col>
@@ -57,13 +57,13 @@ export default function UserCenter(props) {
             <Card.Body>
               <Card.Title>{prop.name}</Card.Title>
               <Card.Text>
-                Creator of the Metchup.
+                Testing Metchup Functions.
               </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroup.Item>WCAS 23'</ListGroup.Item>
               <ListGroup.Item>Major:Computer Science</ListGroup.Item>
-              <ListGroup.Item>Frontend developer</ListGroup.Item>
+              <ListGroup.Item>Full-stack developer</ListGroup.Item>
             </ListGroup>
             <Card.Body>
               <Card.Link href="">Github</Card.Link>
