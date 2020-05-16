@@ -19,7 +19,7 @@ export default function ClassModal(props) {
       .then(data => (data.length == 1)?
       setList(
           <ListGroup.Item key="nothing">
-            No Available Classmate.
+            <strong>No Available Classmate at this point :(</strong>
           </ListGroup.Item>
       )
       :setList(
