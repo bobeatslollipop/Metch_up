@@ -10,6 +10,7 @@ export default function ClassModal(props) {
   
     const [show, setShow] = useState(false);
     const [list, setList] = useState(null);
+    const [groupInfo, setGroupInfo] = useState(null); //Acquire group infos
     const [inGroup, setInGroup] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -52,18 +53,18 @@ export default function ClassModal(props) {
           <ListGroup variant="flush">
             <ListGroup.Item>
               <InputGroup>
-                  <FormControl
-                    placeholder="When to meet"
-                  />
-                  <InputGroup.Append>
-                    <Button variant="outline-primary">Post</Button>
-                  </InputGroup.Append>
-                </InputGroup>
+                <FormControl
+                  defaultValue="When to Meet Link"
+                />
+                <InputGroup.Append>
+                  <Button variant="outline-primary">Post</Button>
+                </InputGroup.Append>
+              </InputGroup>
             </ListGroup.Item>
             <ListGroup.Item>
               <InputGroup>
                 <FormControl
-                  placeholder="Zoom Link"
+                  defaultValue="Zoom Link"
                 />
                 <InputGroup.Append>
                   <Button variant="outline-primary">Post</Button>
