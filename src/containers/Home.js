@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, Button, Col, Row, Container } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
 import ClassModal from './Modal'
@@ -48,10 +49,11 @@ export default function Home(props) {
   function renderClassList() {
     return(
     <>
-      <ListGroup.Item href="/search" key="AddClass" className="AddClass">
-        <b>{"\uFF0B"}</b> Add a new class
-      </ListGroup.Item>
-
+      <LinkContainer to="/search">
+        <ListGroup.Item key="AddClass" className="AddClass">
+          <strong>{"\uFF0B"}</strong> Add a new class
+        </ListGroup.Item>
+      </LinkContainer>
       {classes.map(clsId => renderClass(clsId))}
     </>
     );
