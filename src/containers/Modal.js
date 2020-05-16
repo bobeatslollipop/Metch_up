@@ -7,14 +7,14 @@ import { getUserByClass } from "../firebase"
 
 
 export default function ClassModal(props) {
+  
     const [show, setShow] = useState(false);
     const [list, setList] = useState(null);
+    const [inGroup, setInGroup] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    var inGroup = false; //if a person is in a study group
-    
+    const handleChangeState = () => setInGroup(!inGroup);
 
     useEffect(() => {onLoad()}, []);
 
@@ -101,6 +101,7 @@ export default function ClassModal(props) {
         );
       }
     }
+
     return (
         <>
           <Button block variant="outline-primary" onClick={handleShow}>
@@ -119,7 +120,10 @@ export default function ClassModal(props) {
                 Close
               </Button>
               <Button variant="outline-primary" onClick={handleClose}>
-                Join the group
+                Send Invitation
+              </Button>
+              <Button variant="outline-info" onClick={handleChangeState}>
+                Alter Status
               </Button>
             </Modal.Footer>
           </Modal>
