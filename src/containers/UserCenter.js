@@ -125,7 +125,7 @@ export default function UserCenter(props) {
               <ListGroup.Item>Full-stack developer</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Card.Link href="">Github</Card.Link>
+              <Card.Link href="https://github.com/ZhuoranS" target="_blank">Github</Card.Link>
               <Card.Link href="https://www.linkedin.com/in/zrsu/" target="_blank">Linkedin</Card.Link>
             </Card.Body>
           </Card>
