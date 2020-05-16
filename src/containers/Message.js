@@ -39,30 +39,31 @@ export default function Message(props) {
     await getUserById("tonyluo2023@u.northwestern.edu")
     .then(data => {
       setClasses(data.classes);
-      console.log("classes loaded in message.");
+      console.log("classes loaded in message with "+data.classes);
+      addUsers(data.classes);
     }).catch(err => alert(err));
 
     var a = [];
     
-    await Promise.all(classes.map(async (clsId) =>{ 
-      console.log("im here!!!!!");
-      await getUserByClass(clsId)
-      .then(data => {
-        setUsers(data);
+    // await Promise.all(classes.map(async (clsId) =>{ 
+    //   console.log("im here!!!!!");
+    //   await getUserByClass(clsId)
+    //   .then(data => {
+    //     setUsers(data);
+    //     a = a.concat(users);  
+    //   }).catch(err => alert(err));
+    // }));
+    async function addUsers(classList){
+      for(let i =0;i<classList.length;i++){
+        console.log("add class id "+classList[i]+"to the list.");
+        await getUserByClass(classList[i])
+        .then(data => {
+          setUsers(data);
+        }).catch(err => alert(err));
         a = a.concat(users);  
-      }).catch(err => alert(err));
-    }));
-/* 
-    for(let i =0;i<6;i++){
-      console.log("im here!!!!!");
-      console.log("add class id "+classes[i]+"to the list.");
-      await getUserByClass(classes[i])
-      .then(data => {
-        setUsers(data);
-      }).catch(err => alert(err));
-      a = a.concat(users);  
+      }
     }
- */
+
     setMails(
       a
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
