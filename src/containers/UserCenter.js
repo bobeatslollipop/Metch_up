@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Tab, Nav, Container, Jumbotron, Card, ListGroup, Form, Button, CardDeck } from "react-bootstrap";
+import { useFormFields } from "../libs/hooksLib";
 import "./UserCenter.css";
 import { Auth } from "../firebase";
 
@@ -66,23 +67,31 @@ export default function UserCenter(props) {
 
           <Form.Group controlId="formGridMajor">
             <Form.Label>Major</Form.Label>
-            <Form.Control placeholder={props.userMajor} />
+            <Form.Control 
+            placeholder={props.userMajor} 
+            />
           </Form.Group>
 
           <Form.Group controlId="formGridIntroduction">
             <Form.Label>Introduce Yourself</Form.Label>
-            <Form.Control placeholder={props.userIntro} />
+            <Form.Control 
+            placeholder={props.userIntro}
+             />
           </Form.Group>
 
           <Form.Row>
             <Form.Group as={Col} controlId="formGridResidence">
               <Form.Label>Dorm/Residence</Form.Label>
-              <Form.Control placeholder={props.userResidence}/>
+              <Form.Control 
+              placeholder={props.userResidence}
+              />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridYear">
               <Form.Label>Year</Form.Label>
-              <Form.Control placeholder={props.userYear}/>
+              <Form.Control 
+              placeholder={props.userYear}
+              />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridZip">
