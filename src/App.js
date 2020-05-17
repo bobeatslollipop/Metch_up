@@ -8,6 +8,9 @@ import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 function App(props) {
   const [name, setName] = useState(null);
+  const [major, setMajor] = useState(null);
+  const [residence, setResidence] = useState(null);
+  const [intro, setIntro] = useState(null);
   const [user, setUser] = useState(Auth.currentUser);
 
   Auth.onAuthStateChanged(() => setUser(Auth.currentUser));
@@ -17,8 +20,13 @@ function App(props) {
     if (Auth.currentUser)
     {
       await getUserById(Auth.currentUser.email)
-      .then(data => setName(data.name))
-      .catch(err => alert(err));
+      .then(data => {
+        setName(data.name); 
+        setMajor(data.major);
+        setResidence(data.residence);
+        setIntro(data.intro);
+      })
+      .catch(err => alert(err)); 
     }
   }
 
@@ -44,7 +52,7 @@ function App(props) {
     </Navbar>
     </Container>
 
-    <Routes {...props} userName={name} userObj={user}/>
+    <Routes {...props} userInfo={name} userMajor={major} userResidence={residence} userIntro={intro} userObj={user}/>
   </>
   );
 

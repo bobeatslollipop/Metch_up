@@ -34,7 +34,11 @@ export default function Signup(props) {
   function createUserData() {
     db.collection("Users").doc(fields.email).set({
       name: fields.name,
-      classes: []
+      classes: [],
+      major: null,
+      residence: null,
+      year: null,
+      intro: null
     }).then(() => {
       console.log("User '" +fields.name + "' created with email '" + fields.email +"'");
       props.history.push("/");
