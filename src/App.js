@@ -11,6 +11,7 @@ function App(props) {
   const [major, setMajor] = useState(null);
   const [residence, setResidence] = useState(null);
   const [intro, setIntro] = useState(null);
+  const [year, setYear] = useState(null);
   const [user, setUser] = useState(Auth.currentUser);
 
   Auth.onAuthStateChanged(() => setUser(Auth.currentUser));
@@ -25,6 +26,7 @@ function App(props) {
         setMajor(data.major);
         setResidence(data.residence);
         setIntro(data.intro);
+        setYear(data.year);
       })
       .catch(err => alert(err)); 
     }
@@ -52,7 +54,7 @@ function App(props) {
     </Navbar>
     </Container>
 
-    <Routes {...props} userInfo={name} userMajor={major} userResidence={residence} userIntro={intro} userObj={user}/>
+    <Routes {...props} userInfo={name} userMajor={major} userResidence={residence} userIntro={intro} userYear={year} userObj={user}/>
   </>
   );
 

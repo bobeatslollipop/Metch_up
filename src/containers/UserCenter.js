@@ -82,12 +82,7 @@ export default function UserCenter(props) {
 
             <Form.Group as={Col} controlId="formGridYear">
               <Form.Label>Year</Form.Label>
-              <Form.Control as="select">
-                <option>Freshman</option>
-                <option>Sophomore</option>
-                <option>Junior</option>
-                <option>Senior</option>
-              </Form.Control>
+              <Form.Control placeholder={props.userYear}/>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridZip">
