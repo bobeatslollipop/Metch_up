@@ -7,7 +7,7 @@ import ClassModal from './Modal'
 import courseData from "../data/4770/courses.json";
 
 export default function Home(props) {
-  console.log(props.userInfo+"from home, "+props.userMajor);
+  console.log(props.userInfo + " from home, " + props.userMajor);
   const [isLoading, setIsLoading] = useState(true);
   const [name, setName] = useState(props.userName);
   const [user, setUser] = useState(props.userObj);

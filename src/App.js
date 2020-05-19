@@ -7,12 +7,8 @@ import "./App.css";
 import NavbarCollapse from 'react-bootstrap/NavbarCollapse';
 
 function App(props) {
-  const [name, setName] = useState(null);
-  const [major, setMajor] = useState(null);
-  const [residence, setResidence] = useState(null);
-  const [intro, setIntro] = useState(null);
-  const [year, setYear] = useState(null);
   const [user, setUser] = useState(Auth.currentUser);
+  const [data, setData] = useState(null);
 
   Auth.onAuthStateChanged(() => setUser(Auth.currentUser));
   useEffect(() => {onLoad()}, [user]);
@@ -21,12 +17,9 @@ function App(props) {
     if (Auth.currentUser)
     {
       await getUserById(Auth.currentUser.email)
-      .then(data => {
-        setName(data.name); 
-        setMajor(data.major);
-        setResidence(data.residence);
-        setIntro(data.intro);
-        setYear(data.year);
+      .then(d => {
+        setData(d);
+        console.log("data is "+d);
       })
       .catch(err => alert(err)); 
     }
@@ -54,9 +47,23 @@ function App(props) {
     </Navbar>
     </Container>
 
-    <Routes {...props} userInfo={name} userMajor={major} userResidence={residence} userIntro={intro} userYear={year} userObj={user}/>
+    {renderRoutes()}
   </>
   );
+
+  function renderRoutes() {
+    if (data) {
+      console.log("if case ");
+      return <Routes {...props} userInfo={data.name} userMajor={data.major} 
+    userResidence={data.residence} userIntro={data.intro} userYear={data.year} userObj={user}/>
+    } else if (user) {
+      console.log("else case " + user)
+      return null;
+    } else {
+      console.log("else case " + user);
+      return <Routes {...props}/>;
+    }
+  }
 
   function loggedIn() {
     return (<>
