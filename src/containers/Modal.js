@@ -36,8 +36,8 @@ export default function ClassModal(props) {
           data
           .filter(user => user.id !== props.userId)  //filter the array without current user
           .map((user) => 
-          <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-            <ListGroup.Item key={user.id}>
+          <LinkContainer key={user.id} to={{pathname:"/message", aboutProps: user.id}}>
+            <ListGroup.Item >
               {user.id}
             </ListGroup.Item>
           </LinkContainer>)
@@ -51,7 +51,7 @@ export default function ClassModal(props) {
         <Container>
           <p>Connect with your partners!</p>
           <ListGroup variant="flush">
-            <ListGroup.Item>
+            <ListGroup.Item key="w2m">
               <InputGroup>
                 <FormControl
                   defaultValue="When to Meet Link"
@@ -61,7 +61,7 @@ export default function ClassModal(props) {
                 </InputGroup.Append>
               </InputGroup>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item key="zoom">
               <InputGroup>
                 <FormControl
                   defaultValue="Zoom Link"
@@ -71,7 +71,7 @@ export default function ClassModal(props) {
                 </InputGroup.Append>
               </InputGroup>
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item key="message">
               <Button variant="outline-primary" block>{"\uFF0B"}Message</Button>
             </ListGroup.Item>
           </ListGroup>
