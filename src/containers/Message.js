@@ -1,6 +1,7 @@
 import React, {useState,useEffect } from "react";
-import { Form, Button, Container, ListGroup, Col, Row } from "react-bootstrap";
+import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom';
 import { db,getUserByClass,getUserById } from "../firebase";
 import "./Message.css";
 
@@ -71,13 +72,14 @@ export default function Message(props) {
       .map((user) => 
       <ListGroup.Item key={user.id}>
         <Row>
-          <Col md={4}>
-            {"tonyluo2023@u.northwestern.edu"} 
+          <Col md={4} style={{ display: "flex"}}>
+            <Container style={{ display: "flex", alignItems:"center" }}>{"tonyluo2023@u.northwestern.edu"} 
+            </Container>
           </Col>
-          <Col md={{ span: 2, offset: 6 }}>
-          <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-            <Button variant="outline-light">Message</Button>
-          </LinkContainer>
+          <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
+          <Link to={{pathname:"/message", aboutProps: user.id}}>
+            <Button variant="outline-dark">Message</Button>
+          </Link>
           
           </Col>
         </Row>
@@ -89,19 +91,19 @@ export default function Message(props) {
       setInbox(
         messages.map((message) =>
         <ListGroup.Item key={message.id}>
-        <Row>
-          <Col md={4}>
-            {"Andrew Su"} 
-          </Col>
-          <Col md={6}>
-            {"Would you like to be my 212 partner?"} 
-          </Col>
-          <Col md={{ span: 2, offset: 12 }}>
-          <LinkContainer to={{pathname:"/message", aboutProps: message.id}}>
-            <Button variant="outline-light">Open</Button>
-          </LinkContainer>
-          </Col>
-        </Row>
+          <Row>
+            <Col md={4} style={{ display: "flex"}}>
+              <Container style={{ display: "flex", alignItems:"center" }}> Andrew Su</Container>
+            </Col>
+            <Col md={6} style={{ display: "flex"}}>
+              <Container style={{ display: "flex", alignItems:"center" }}>Would you like to be my 212 partner?</Container>
+            </Col>
+            <Col md={{ span: 2, offset: 12 }}>
+            <Link to={{pathname:"/message", aboutProps: message.id}}>
+              <Button variant="outline-dark">Open</Button>
+            </Link>
+            </Col>
+          </Row>
       </ListGroup.Item>
         )
       )
