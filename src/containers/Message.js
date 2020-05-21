@@ -40,9 +40,10 @@ export default function Message(props) {
     .then(data => {
       setClasses(data.classes);
       console.log("classes loaded in message with "+data.classes);
-      addUsers(data.classes);
+      addUsers(classes);  //data.classes or classes? 
     }).catch(err => alert(err));
 
+    // array of user object
     var a = [];
     
     // await Promise.all(classes.map(async (clsId) =>{ 
@@ -65,22 +66,44 @@ export default function Message(props) {
     }
 
     setMails(
-      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"]
+      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] // temporary  example!!!!  replace with 'a', replace {user.id} below
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
       <ListGroup.Item key={user.id}>
         <Row>
           <Col md={4}>
-            {user.id}
+            {"tonyluo2023@u.northwestern.edu"} 
           </Col>
           <Col md={{ span: 2, offset: 6 }}>
           <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-            <Button variant="outline-dark">Message</Button>
+            <Button variant="outline-light">Message</Button>
           </LinkContainer>
           
           </Col>
         </Row>
       </ListGroup.Item>)
+      )
+
+      var messages = [1];
+      //fix the link of the botton later 
+      setInbox(
+        messages.map((message) =>
+        <ListGroup.Item key={message.id}>
+        <Row>
+          <Col md={4}>
+            {"Andrew Su"} 
+          </Col>
+          <Col md={6}>
+            {"Would you like to be my 212 partner?"} 
+          </Col>
+          <Col md={{ span: 2, offset: 12 }}>
+          <LinkContainer to={{pathname:"/message", aboutProps: message.id}}>
+            <Button variant="outline-light">Open</Button>
+          </LinkContainer>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+        )
       )
 
 
@@ -128,16 +151,16 @@ export default function Message(props) {
         <div class="Inbox">
           <h5 class="inbox">Inbox </h5>
           <ListGroup>
-           {mails}
+           {inbox}
           </ListGroup>
         </div>
-        // list all the Messages received by the users.
+
         
 
         <div class="Mail">
-          <h5 class="list">Find your classmates below! </h5>
+          <h4 class="list">Your Classmates </h4>
         </div>
-        // list all the mails from users' enrolled classes
+
         <ListGroup>
           {mails}
         </ListGroup>
