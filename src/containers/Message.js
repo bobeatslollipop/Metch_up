@@ -149,7 +149,7 @@ export default function Message(props) {
 
   function renderMails(){
     return (
-      <div class="Mail">
+      <Container class="Mail">
         <div class="Inbox">
           <h5 class="inbox">Inbox </h5>
           <ListGroup>
@@ -166,7 +166,7 @@ export default function Message(props) {
         <ListGroup>
           {mails}
         </ListGroup>
-      </div>
+      </Container>
 
     );
   }
