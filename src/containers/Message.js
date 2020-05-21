@@ -110,14 +110,35 @@ export default function Message(props) {
   }
 
 
+  function renderInbox(){
+    return (
+      <div class="Inbox">
+        <div class="Inbox">
+          <h5 class="inbox">Inbox </h5>
+        </div>
+        // list all the mails received by the users.
+        <ListGroup>
+          {mails}
+        </ListGroup>
+      </div>
 
+    );
+  }
 
 
   function renderMails(){
     return (
-      <div class="Mail list">
+      <div class="Mail">
+        <div class="Inbox">
+          <h5 class="inbox">Inbox </h5>
+        </div>
+        // list all the Messages received by the users.
+        <ListGroup>
+          {mails}
+        </ListGroup>
+
         <div class="Mail">
-          <h5 class="course-title">Find your classmates below! </h5>
+          <h5 class="list">Find your classmates below! </h5>
         </div>
         // list all the mails from users' enrolled classes
         <ListGroup>
