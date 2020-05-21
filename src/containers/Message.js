@@ -1,5 +1,5 @@
 import React, {useState,useEffect } from "react";
-import { Form, Button, Container, ListGroup } from "react-bootstrap";
+import { Form, Button, Container, ListGroup, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { db,getUserByClass,getUserById } from "../firebase";
 import "./Message.css";
@@ -15,7 +15,7 @@ export default function Message(props) {
   var showlist = false;
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
-  const [reciever,setReciever] = useState(null);
+  const [inbox, setInbox] = useState([]);
   const [classes, setClasses] = useState([]);
   const [users,setUsers] = useState([]);
 
@@ -40,9 +40,10 @@ export default function Message(props) {
     .then(data => {
       setClasses(data.classes);
       console.log("classes loaded in message with "+data.classes);
-      addUsers(data.classes);
+      addUsers(classes);  //data.classes or classes? 
     }).catch(err => alert(err));
 
+    // array of user object
     var a = [];
     
     // await Promise.all(classes.map(async (clsId) =>{ 
@@ -65,16 +66,47 @@ export default function Message(props) {
     }
 
     setMails(
-      a
+      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] // temporary  example!!!!  replace with 'a', replace {user.id} below
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
-      <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-        <ListGroup.Item key={user.id}>
-        {console.log("add user"+user.id+"to the list")}
-          {user.id}
-        </ListGroup.Item>
-      </LinkContainer>)
+      <ListGroup.Item key={user.id}>
+        <Row>
+          <Col md={4}>
+            {"tonyluo2023@u.northwestern.edu"} 
+          </Col>
+          <Col md={{ span: 2, offset: 6 }}>
+          <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
+            <Button variant="outline-light">Message</Button>
+          </LinkContainer>
+          
+          </Col>
+        </Row>
+      </ListGroup.Item>)
       )
+
+      var messages = [1];
+      //fix the link of the botton later 
+      setInbox(
+        messages.map((message) =>
+        <ListGroup.Item key={message.id}>
+        <Row>
+          <Col md={4}>
+            {"Andrew Su"} 
+          </Col>
+          <Col md={6}>
+            {"Would you like to be my 212 partner?"} 
+          </Col>
+          <Col md={{ span: 2, offset: 12 }}>
+          <LinkContainer to={{pathname:"/message", aboutProps: message.id}}>
+            <Button variant="outline-light">Open</Button>
+          </LinkContainer>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+        )
+      )
+
+
   }
 
 //fix later, after we can get user's email from app.js.
@@ -115,11 +147,20 @@ export default function Message(props) {
 
   function renderMails(){
     return (
-      <div class="Mail list">
-        <div class="Mail">
-          <h5 class="course-title">Find your classmates below! </h5>
+      <div class="Mail">
+        <div class="Inbox">
+          <h5 class="inbox">Inbox </h5>
+          <ListGroup>
+           {inbox}
+          </ListGroup>
         </div>
-        // list all the mails from users' enrolled classes
+
+        
+
+        <div class="Mail">
+          <h4 class="list">Your Classmates </h4>
+        </div>
+
         <ListGroup>
           {mails}
         </ListGroup>
