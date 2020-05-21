@@ -1,5 +1,5 @@
 import React, {useState,useEffect } from "react";
-import { Form, Button, Container, ListGroup } from "react-bootstrap";
+import { Form, Button, Container, ListGroup, Col, Row } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { db,getUserByClass,getUserById } from "../firebase";
 import "./Message.css";
@@ -15,7 +15,7 @@ export default function Message(props) {
   var showlist = false;
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
-  const [reciever,setReciever] = useState(null);
+  const [inbox, setInbox] = useState([]);
   const [classes, setClasses] = useState([]);
   const [users,setUsers] = useState([]);
 
@@ -65,16 +65,25 @@ export default function Message(props) {
     }
 
     setMails(
-      a
+      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"]
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
-      <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
-        <ListGroup.Item key={user.id}>
-        {console.log("add user"+user.id+"to the list")}
-          {user.id}
-        </ListGroup.Item>
-      </LinkContainer>)
+      <ListGroup.Item key={user.id}>
+        <Row>
+          <Col md={4}>
+            {user.id}
+          </Col>
+          <Col md={{ span: 2, offset: 6 }}>
+          <LinkContainer to={{pathname:"/message", aboutProps: user.id}}>
+            <Button variant="outline-dark">Message</Button>
+          </LinkContainer>
+          
+          </Col>
+        </Row>
+      </ListGroup.Item>)
       )
+
+
   }
 
 //fix later, after we can get user's email from app.js.
@@ -110,20 +119,7 @@ export default function Message(props) {
   }
 
 
-  function renderInbox(){
-    return (
-      <div class="Inbox">
-        <div class="Inbox">
-          <h5 class="inbox">Inbox </h5>
-        </div>
-        // list all the mails received by the users.
-        <ListGroup>
-          {mails}
-        </ListGroup>
-      </div>
 
-    );
-  }
 
 
   function renderMails(){
@@ -131,11 +127,12 @@ export default function Message(props) {
       <div class="Mail">
         <div class="Inbox">
           <h5 class="inbox">Inbox </h5>
+          <ListGroup>
+           {mails}
+          </ListGroup>
         </div>
         // list all the Messages received by the users.
-        <ListGroup>
-          {mails}
-        </ListGroup>
+        
 
         <div class="Mail">
           <h5 class="list">Find your classmates below! </h5>

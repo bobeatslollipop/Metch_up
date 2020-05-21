@@ -65,7 +65,7 @@ function App(props) {
 
       <NavbarCollapse className="justify-content-end">
         <Link to="/message">
-          <Button variant="outline-secondary">Message
+          <Button variant="outline-secondary">Inbox
             <Badge className="MessageBadge" variant="dark"> 0 </Badge>
           </Button>
         </Link>
