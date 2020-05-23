@@ -2,7 +2,7 @@ import React, {useState,useEffect } from "react";
 import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
-import { db,getUserByClass,getUserById } from "../firebase";
+import { db,getUserByClass,getUserById, getMessagesByUser } from "../firebase";
 import "./Message.css";
 
 export default function Message(props) {
@@ -16,6 +16,7 @@ export default function Message(props) {
   var showlist = false;
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
+  //const[messages,setMessages] = useState([]);
   const [inbox, setInbox] = useState([]);
   const [classes, setClasses] = useState([]);
   const [users,setUsers] = useState([]);
@@ -24,7 +25,8 @@ export default function Message(props) {
 
   //sender passed by App.js
   //sendTo passed by Modal.js
-  const sender = props.userName;
+  const sender = props.userInfo;
+  //change sender to email later 
   const sendTo = props.location.aboutProps;
   if (sendTo){
     console.log("from class modal, the receiver is: "+sendTo);
@@ -67,17 +69,19 @@ export default function Message(props) {
     }
 
     setMails(
-      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] // temporary  example!!!!  replace with 'a', replace {user.id} below
+      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] 
+      // temporary  example!!!!  replace with 'a' above, replace {user.id} below
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
       <ListGroup.Item key={user.id}>
         <Row>
           <Col md={4} style={{ display: "flex"}}>
-            <Container style={{ display: "flex", alignItems:"center" }}>{"tonyluo2023@u.northwestern.edu"} 
+            <Container style={{ display: "flex", alignItems:"center" }}>
+            {"tonyluo2023@u.northwestern.edu"} 
             </Container>
           </Col>
           <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
-          <Link to={{pathname:"/message", aboutProps: user.id}}>
+          <Link to={{pathname:"/message", aboutProps: "tonyluo2023@u.northwestern.edu"}}>
             <Button variant="outline-dark">Message</Button>
           </Link>
           
@@ -86,21 +90,33 @@ export default function Message(props) {
       </ListGroup.Item>)
       )
 
-      var messages = [1];
-      //fix the link of the botton later 
+
+      var messages = [];
+
+      await getMessagesByUser("andrewsu2023@u.northwestern.edu")
+          .then(data => {
+            //setMessages(data);
+            messages = data;
+            console.log("inbox messages loaded in message ");
+          }).catch(err => alert(err));
+          
+          
+          console.log("how many messages? " +messages.length);
+
       setInbox(
         messages.map((message) =>
         <ListGroup.Item key={message.id}>
           <Row>
             <Col md={4} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}> Andrew Su</Container>
+              <Container style={{ display: "flex", alignItems:"center" }}> {message.data().idFrom}</Container>
+              {console.log("inbox message from: "+message.idFrom)}
             </Col>
             <Col md={6} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}>Would you like to be my 212 partner?</Container>
+              <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content}</Container>
             </Col>
             <Col md={{ span: 2, offset: 12 }}>
-            <Link to={{pathname:"/message", aboutProps: message.id}}>
-              <Button variant="outline-dark">Open</Button>
+            <Link to={{pathname:"/message", aboutProps: message.data().idFrom}}>
+              <Button variant="outline-dark">Reply</Button>
             </Link>
             </Col>
           </Row>

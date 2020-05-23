@@ -89,6 +89,29 @@ export function deleteClassFromUser(classId, id){
   .catch(err => handleErr(err));
 }
 
+
+
+//return the classmates from all classess the user is currently enrolled in.
+export async function getMessagesByUser(userId){
+  var retDoc = [];
+  await db.collection("Messages").where("idTo", "==", userId)
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              retDoc.push(doc);
+              console.log(doc.id, " => ", doc.data());
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+
+  return retDoc;
+}
+
+
+
+
 // handles errors with custom messages
 export function handleErr(err) {
   if (err.code === "not-found") {
