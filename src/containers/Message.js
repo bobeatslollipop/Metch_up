@@ -24,7 +24,8 @@ export default function Message(props) {
 
   //sender passed by App.js
   //sendTo passed by Modal.js
-  const sender = props.userName;
+  const sender = props.userInfo;
+  //change sender to email later 
   const sendTo = props.location.aboutProps;
   if (sendTo){
     console.log("from class modal, the receiver is: "+sendTo);
@@ -67,17 +68,19 @@ export default function Message(props) {
     }
 
     setMails(
-      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] // temporary  example!!!!  replace with 'a', replace {user.id} below
+      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] 
+      // temporary  example!!!!  replace with 'a' above, replace {user.id} below
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
       <ListGroup.Item key={user.id}>
         <Row>
           <Col md={4} style={{ display: "flex"}}>
-            <Container style={{ display: "flex", alignItems:"center" }}>{"tonyluo2023@u.northwestern.edu"} 
+            <Container style={{ display: "flex", alignItems:"center" }}>
+            {"tonyluo2023@u.northwestern.edu"} 
             </Container>
           </Col>
           <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
-          <Link to={{pathname:"/message", aboutProps: user.id}}>
+          <Link to={{pathname:"/message", aboutProps: "tonyluo2023@u.northwestern.edu"}}>
             <Button variant="outline-dark">Message</Button>
           </Link>
           
