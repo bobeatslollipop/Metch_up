@@ -16,6 +16,7 @@ export default function Message(props) {
   var showlist = false;
   const [mails, setMails] = useState(null);
   // only for the reciever selected from the mail list.
+  //const[messages,setMessages] = useState([]);
   const [inbox, setInbox] = useState([]);
   const [classes, setClasses] = useState([]);
   const [users,setUsers] = useState([]);
@@ -89,25 +90,29 @@ export default function Message(props) {
       </ListGroup.Item>)
       )
 
+
       var messages = [];
-      //fix the link of the botton later 
 
       await getMessagesByUser("tonyluo2023@u.northwestern.edu")
           .then(data => {
+            //setMessages(data);
             messages = data;
             console.log("inbox messages loaded in message ");
           }).catch(err => alert(err));
-
+          
+          
+          console.log("how many messages? " +messages.length);
 
       setInbox(
         messages.map((message) =>
         <ListGroup.Item key={message.id}>
           <Row>
             <Col md={4} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}> Andrew Su</Container>
+              <Container style={{ display: "flex", alignItems:"center" }}> {message.data().idFrom}</Container>
+              {console.log("inbox message from: "+message.idFrom)}
             </Col>
             <Col md={6} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}>Would you like to be my 212 partner?</Container>
+              <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content}</Container>
             </Col>
             <Col md={{ span: 2, offset: 12 }}>
             <Link to={{pathname:"/message", aboutProps: message.id}}>
