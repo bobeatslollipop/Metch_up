@@ -138,7 +138,7 @@ export default function UserCenter(props) {
           <Card>
             <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
             <Card.Body>
-              <Card.Title>{prop.name}</Card.Title>
+              <Card.Title>Tony Luo</Card.Title>
               <Card.Text>
                 Creator of the Metchup.
               </Card.Text>
@@ -148,8 +148,8 @@ export default function UserCenter(props) {
               <ListGroup.Item>Major:Computer Science</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-              <Card.Link href="#">Github</Card.Link>
-              <Card.Link href="#">Linkedin</Card.Link>
+              <Card.Link href="https://github.com/tonyluozn">Github</Card.Link>
+              <Card.Link href="https://www.linkedin.com/in/tony-luo-429383152/">Linkedin</Card.Link>
             </Card.Body>
           </Card>
         </Col>
@@ -157,7 +157,7 @@ export default function UserCenter(props) {
           <Card>
             <Card.Img variant="top" src="holder.js/100px180?text=Image cap" />
             <Card.Body>
-              <Card.Title>{prop.name}</Card.Title>
+              <Card.Title>Bob Guo</Card.Title>
               <Card.Text>
                 Creator of the Metchup.
               </Card.Text>
