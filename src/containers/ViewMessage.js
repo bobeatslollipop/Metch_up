@@ -18,8 +18,8 @@ export default function ViewMessage(props) {
 
     async function onLoad() {
         var content;
-        await db.collection("Message").doc(props.id).get().then(function(doc) {
-            content = doc;
+        await db.collection("Messages").doc(props.id).get().then(function(doc) {
+            content = doc.data().content;
           }).catch(err => alert(err));
 
         setMessage(content);
