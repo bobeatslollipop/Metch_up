@@ -4,6 +4,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
 import { db,getUserByClass,getUserById, getMessagesByUser } from "../firebase";
 import "./Message.css";
+import ViewMessage from "./ViewMessage";
 
 export default function Message(props) {
 //props:   sender,reciever 
@@ -111,7 +112,10 @@ export default function Message(props) {
             <Col md={6} style={{ display: "flex"}}>
               <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content}</Container>
             </Col>
-            <Col md={{ span: 2, offset: 12 }}>
+            <Col md={{ span: 2, offset: 8 }}>
+              <ViewMessage key={"view"} id={message.id}/>
+            </Col>
+            <Col md={{ span: 2, offset: 13 }}>
             <Link to={{pathname:"/message", aboutProps: message.data().idFrom}}>
               <Button variant="outline-dark">Reply</Button>
             </Link>
