@@ -93,12 +93,12 @@ export default function UserCenter(props) {
           <Form.Row>
             <Form.Group as={Col} controlId="formGridEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control type="email" placeholder="Enter email" disabled/>
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" disabled/>
             </Form.Group>
           </Form.Row>
 
@@ -132,12 +132,14 @@ export default function UserCenter(props) {
               <Form.Control 
               placeholder={props.userYear}
               onChange={e=>{setYear(e.target.value);}}
+              disabled
               />
             </Form.Group>
 
             <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control />
+              <Form.Label>What to put here?</Form.Label>
+              <Form.Control 
+              disabled/>
             </Form.Group>
           </Form.Row>
 
