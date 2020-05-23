@@ -48,6 +48,15 @@ export default function ClassModal(props) {
     }
 
     function GroupView(props){
+      const [w2m, setW2MLink]=useState("When to Meet Link");
+      const [zoom, setZoomLink]=useState("Zoom Link");
+      function handleW2MSubmit(){
+        console.log(w2m);
+      }
+
+      function handleZoomSubmit(){
+        console.log(zoom);
+      }
       return(
         <Container>
           <p>Connect with your partners!</p>
@@ -55,20 +64,22 @@ export default function ClassModal(props) {
             <ListGroup.Item key="w2m">
               <InputGroup>
                 <FormControl
-                  defaultValue="When to Meet Link"
+                  defaultValue={w2m}
+                  onChange={e=>setW2MLink(e.target.value)}
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-primary">Post</Button>
+                  <Button variant="outline-primary" onClick={handleW2MSubmit}>Post</Button>
                 </InputGroup.Append>
               </InputGroup>
             </ListGroup.Item>
             <ListGroup.Item key="zoom">
               <InputGroup>
                 <FormControl
-                  defaultValue="Zoom Link"
+                  defaultValue={zoom}
+                  onChange={e=>setZoomLink(e.target.value)}
                 />
                 <InputGroup.Append>
-                  <Button variant="outline-primary">Post</Button>
+                  <Button variant="outline-primary" onClick={handleZoomSubmit}>Post</Button>
                 </InputGroup.Append>
               </InputGroup>
             </ListGroup.Item>
