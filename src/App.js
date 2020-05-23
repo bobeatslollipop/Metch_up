@@ -55,7 +55,7 @@ function App(props) {
     if (data) {
       console.log("if case ");
       return <Routes {...props} userInfo={data.name} userMajor={data.major} 
-    userResidence={data.residence} userIntro={data.intro} userYear={data.year} userObj={user}/>
+    userResidence={data.residence} userIntro={data.intro} userYear={data.year} userObj={user} userEmail={Auth.currentUser.email}/>
     } else if (user) {
       console.log("else case " + user)
       return null;
