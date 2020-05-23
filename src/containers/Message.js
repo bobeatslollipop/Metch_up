@@ -2,7 +2,7 @@ import React, {useState,useEffect } from "react";
 import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
-import { db,getUserByClass,getUserById } from "../firebase";
+import { db,getUserByClass,getUserById, getMessagesByUser } from "../firebase";
 import "./Message.css";
 
 export default function Message(props) {
@@ -89,8 +89,16 @@ export default function Message(props) {
       </ListGroup.Item>)
       )
 
-      var messages = [1];
+      var messages = [];
       //fix the link of the botton later 
+
+      await getMessagesByUser("tonyluo2023@u.northwestern.edu")
+          .then(data => {
+            messages = data;
+            console.log("inbox messages loaded in message ");
+          }).catch(err => alert(err));
+
+
       setInbox(
         messages.map((message) =>
         <ListGroup.Item key={message.id}>
