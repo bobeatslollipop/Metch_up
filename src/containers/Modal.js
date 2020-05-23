@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button, Col, ListGroup, Container, InputGroup, FormControl} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom';
 import { getUserByClass } from "../firebase"
 
 
@@ -120,9 +121,11 @@ export default function ClassModal(props) {
               <Button variant="outline-secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="outline-primary" onClick={handleClose}>
-                Send Invitation
-              </Button>
+              <Link to={{pathname:"/message"}}>
+                <Button variant="outline-primary">
+                  Send Invitation
+                </Button>
+              </Link>
               <Button variant="outline-info" onClick={handleChangeState}>
                 Alter Status
               </Button>
