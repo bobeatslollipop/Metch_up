@@ -21,7 +21,7 @@ export default function Message(props) {
 
   //sender passed by App.js
   //sendTo passed by Modal.js
-  const sender = props.userInfo;
+  const sender = props.userEmail;
   //change sender to email later 
   const sendTo = props.location.aboutProps;
   if (sendTo){
@@ -90,7 +90,7 @@ export default function Message(props) {
 
       var messages = [];
 
-      await getMessagesByUser("andrewsu2023@u.northwestern.edu")
+      await getMessagesByUser(sender)
           .then(data => {
             //setMessages(data);
             messages = data;
@@ -190,7 +190,7 @@ export default function Message(props) {
       <div class="User">
         <div class="user-info">
           <h5 class="course-title">Sender: {sender} </h5>
-          <h5 class="course-title">Reciever: {sendTo} </h5>
+          <h5 class="course-title">Receiver: {sendTo} </h5>
         {// Display reciever's name, other info, and classes 
         }
         </div>
