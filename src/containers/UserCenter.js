@@ -51,18 +51,22 @@ export default function UserCenter(props) {
     const [residence, setResidence] = useState(null);
     const [year, setYear] = useState(null);
     const [zip, setZip] = useState(null);
-    function handleSubmit(){
+    function handleSubmit(e){
+      var msg="";
       if (major != null){
         console.log(major);
         changeUserMajor(props.userEmail, major);
+        msg = msg + "Major ";
       }
       if (intro != null){
         console.log(intro);
         changeUserIntro(props.userEmail, intro);
+        msg = msg + "Intro "
       }
       if (residence != null){
         console.log(residence);
         changeUserResidence(props.userEmail, residence);
+        msg = msg + "Residence "
       }
       if (year != null){
         console.log(year);
@@ -70,6 +74,13 @@ export default function UserCenter(props) {
       if (zip != null){
         console.log(major);
       }
+      if (msg!=""){
+        alert(msg + "Updated");
+      } else {
+        alert("Nothing Updated");
+        e.preventDefault();
+      }
+
     }
 
     return(
@@ -137,7 +148,7 @@ export default function UserCenter(props) {
           <Button 
           variant="primary" 
           type="submit"
-          onClick={e =>{handleSubmit()}}>
+          onClick={e =>{handleSubmit(e)}}>
             Submit
           </Button>
         </Form>
