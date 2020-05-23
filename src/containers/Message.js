@@ -93,7 +93,7 @@ export default function Message(props) {
 
       var messages = [];
 
-      await getMessagesByUser("tonyluo2023@u.northwestern.edu")
+      await getMessagesByUser("andrewsu2023@u.northwestern.edu")
           .then(data => {
             //setMessages(data);
             messages = data;
@@ -115,8 +115,8 @@ export default function Message(props) {
               <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content}</Container>
             </Col>
             <Col md={{ span: 2, offset: 12 }}>
-            <Link to={{pathname:"/message", aboutProps: message.id}}>
-              <Button variant="outline-dark">Open</Button>
+            <Link to={{pathname:"/message", aboutProps: message.data().idFrom}}>
+              <Button variant="outline-dark">Reply</Button>
             </Link>
             </Col>
           </Row>
