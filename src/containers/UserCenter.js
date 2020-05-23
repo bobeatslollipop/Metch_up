@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Col, Row, Tab, Nav, Container, Jumbotron, Card, ListGroup, Form, Button, CardDeck } from "react-bootstrap";
 import { useFormFields } from "../libs/hooksLib";
 import "./UserCenter.css";
-import { Auth } from "../firebase";
+import { Auth, changeUserMajor, changeUserIntro, changeUserResidence } from "../firebase";
 
 export default function UserCenter(props) {
   //Username, Dorm, ClassYear, Major, Introduction
@@ -46,6 +46,32 @@ export default function UserCenter(props) {
   );
 
   function Profile() {
+    const [major, setMajor] = useState(null);
+    const [intro, setIntro] = useState(null);
+    const [residence, setResidence] = useState(null);
+    const [year, setYear] = useState(null);
+    const [zip, setZip] = useState(null);
+    function handleSubmit(){
+      if (major != null){
+        console.log(major);
+        changeUserMajor(props.userEmail, major);
+      }
+      if (intro != null){
+        console.log(intro);
+        changeUserIntro(props.userEmail, intro);
+      }
+      if (residence != null){
+        console.log(residence);
+        changeUserResidence(props.userEmail, residence);
+      }
+      if (year != null){
+        console.log(year);
+      }
+      if (zip != null){
+        console.log(major);
+      }
+    }
+
     return(
       <Container style={{backgroundColor:"white", borderRadius:"15px", padding: "15px"}}>
         <Container style={{textAlign: "center"}}>
@@ -69,6 +95,7 @@ export default function UserCenter(props) {
             <Form.Label>Major</Form.Label>
             <Form.Control 
             placeholder={props.userMajor} 
+            onChange={e=>{setMajor(e.target.value);}}
             />
           </Form.Group>
 
@@ -76,6 +103,7 @@ export default function UserCenter(props) {
             <Form.Label>Introduce Yourself</Form.Label>
             <Form.Control 
             placeholder={props.userIntro}
+            onChange={e=>{setIntro(e.target.value);}}
              />
           </Form.Group>
 
@@ -84,6 +112,7 @@ export default function UserCenter(props) {
               <Form.Label>Dorm/Residence</Form.Label>
               <Form.Control 
               placeholder={props.userResidence}
+              onChange={e=>{setResidence(e.target.value);}}
               />
             </Form.Group>
 
@@ -91,6 +120,7 @@ export default function UserCenter(props) {
               <Form.Label>Year</Form.Label>
               <Form.Control 
               placeholder={props.userYear}
+              onChange={e=>{setYear(e.target.value);}}
               />
             </Form.Group>
 
@@ -104,7 +134,10 @@ export default function UserCenter(props) {
             <Form.Check type="checkbox" label="Check me out" />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button 
+          variant="primary" 
+          type="submit"
+          onClick={e =>{handleSubmit()}}>
             Submit
           </Button>
         </Form>

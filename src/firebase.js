@@ -89,6 +89,26 @@ export function deleteClassFromUser(classId, id){
   .catch(err => handleErr(err));
 }
 
+export function changeUserMajor(id, value){
+  db.collection("Users").doc(id).update({
+    major: value
+  }).then(console.log("Major Success!"))
+  .catch(err => handleErr(err));
+}
+
+export function changeUserIntro(id, value){
+  db.collection("Users").doc(id).update({
+    intro: value
+  }).then(console.log("Success change!"))
+  .catch(err => handleErr(err));
+}
+
+export function changeUserResidence(id, value){
+  db.collection("Users").doc(id).update({
+    residence: value
+  }).then(console.log("Success change!"))
+  .catch(err => handleErr(err));
+}
 
 
 //return the classmates from all classess the user is currently enrolled in.
