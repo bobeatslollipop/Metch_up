@@ -12,14 +12,10 @@ export default function Message(props) {
   const [isLoading, setIsLoading] = useState(false);
   //from app.js, show mail list.
   //from Modal.js, show message form.
-  const [showMail, setShow] = useState(false);
   var showlist = false;
   const [mails, setMails] = useState(null);
-  // only for the reciever selected from the mail list.
-  //const[messages,setMessages] = useState([]);
   const [inbox, setInbox] = useState([]);
-  const [classes, setClasses] = useState([]);
-  const [users,setUsers] = useState([]);
+
 
 
 
@@ -38,12 +34,12 @@ export default function Message(props) {
   //load the mail list, get all classmates from all the enrolled classess
   useEffect(() => {onLoad()}, []);
   async function onLoad() {
-  
+    var classes = [];
     await getUserById("tonyluo2023@u.northwestern.edu")
     .then(data => {
-      setClasses(data.classes);
-      console.log("classes loaded in message with "+data.classes);
-      addUsers(classes);  //data.classes or classes? 
+      classes = data.classes;
+      console.log("classes loaded in message with "+classes.length);
+      
     }).catch(err => alert(err));
 
     // array of user object
@@ -57,19 +53,20 @@ export default function Message(props) {
     //     a = a.concat(users);  
     //   }).catch(err => alert(err));
     // }));
-    async function addUsers(classList){
-      for(let i =0;i<classList.length;i++){
-        console.log("add class id "+classList[i]+"to the list.");
-        await getUserByClass(classList[i])
+      console.log("classes length is "+classes.length);
+      for(let i =0;i<classes.length;i++){
+        console.log("add class id "+classes[i]+"to the list.");
+        var users = [];
+        await getUserByClass(classes[i])
         .then(data => {
-          setUsers(data);
+          users = data;
         }).catch(err => alert(err));
         a = a.concat(users);  
       }
-    }
+  
 
     setMails(
-      ["tonyluo2023@u.northwestern.edu","tonyluo2023@u.northwestern.edu"] 
+      a 
       // temporary  example!!!!  replace with 'a' above, replace {user.id} below
       .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
       .map((user) => 
@@ -77,11 +74,11 @@ export default function Message(props) {
         <Row>
           <Col md={4} style={{ display: "flex"}}>
             <Container style={{ display: "flex", alignItems:"center" }}>
-            {"tonyluo2023@u.northwestern.edu"} 
+            {user.id} 
             </Container>
           </Col>
           <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
-          <Link to={{pathname:"/message", aboutProps: "tonyluo2023@u.northwestern.edu"}}>
+          <Link to={{pathname:"/message", aboutProps: user.id}}>
             <Button variant="outline-dark">Message</Button>
           </Link>
           
