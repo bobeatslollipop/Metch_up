@@ -51,17 +51,25 @@ export default function Message(props) {
     //     a = a.concat(users);  
     //   }).catch(err => alert(err));
     // }));
-      console.log("classes length is "+classes.length);
-      for(let i =0;i<classes.length;i++){
-        console.log("add class id "+classes[i]+"to the list.");
-        var users = [];
-        await getUserByClass(classes[i])
-        .then(data => {
-          users = data;
-        }).catch(err => alert(err));
-        a = a.concat(users);  
+    console.log("classes length is "+classes.length);
+    for(let i =0;i<classes.length;i++){
+      console.log("add class id "+classes[i]+"to the list.");
+      var users = [];
+      await getUserByClass(classes[i])
+      .then(data => {
+        users = data;
+      }).catch(err => alert(err));
+      a = a.concat(users);  
+    }
+    
+    function msgParse(str){
+      var result = "";
+      if (str.length >=25) {
+        result = str.substring(0,25)+"...";
+        return result;
       }
-  
+        return str;
+    }
 
     setMails(
       a 
@@ -109,7 +117,7 @@ export default function Message(props) {
               {console.log("inbox message from: "+message.data().idFrom)}
             </Col>
             <Col md={5} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content.substring(0,30)}</Container>
+              <Container style={{ display: "flex", alignItems:"center" }}>{msgParse(message.data().content)}</Container>
             </Col>
             <Col md={2}>
               <ViewMessage key={message.id} id={message.id}/>
