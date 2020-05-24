@@ -17,9 +17,6 @@ export default function Message(props) {
   const [mails, setMails] = useState(null);
   const [inbox, setInbox] = useState([]);
 
-
-
-
   //sender passed by App.js
   //sendTo passed by Modal.js
   const sender = props.userEmail;
@@ -69,7 +66,8 @@ export default function Message(props) {
     setMails(
       a 
       // temporary  example!!!!  replace with 'a' above, replace {user.id} below
-      .filter(user => user.id !== "tonyluo2023@u.northwestern.edu")
+      .filter(user => user.id !== sender)
+      .filter((user, index) => a.indexOf(user) == index)
       .map((user) => 
       <ListGroup.Item key={user.id}>
         <Row>
@@ -106,17 +104,17 @@ export default function Message(props) {
         <ListGroup.Item key={message.id}>
         {console.log("Message loaded. id: " +message.id)}
           <Row>
-            <Col md={4} style={{ display: "flex"}}>
+            <Col md={3} style={{ display: "flex"}}>
               <Container style={{ display: "flex", alignItems:"center" }}> {message.data().idFrom}</Container>
               {console.log("inbox message from: "+message.data().idFrom)}
             </Col>
-            <Col md={6} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content}</Container>
+            <Col md={5} style={{ display: "flex"}}>
+              <Container style={{ display: "flex", alignItems:"center" }}>{message.data().content.substring(0,30)}</Container>
             </Col>
-            <Col md={{ span: 2, offset: 8 }}>
+            <Col md={2}>
               <ViewMessage key={message.id} id={message.id}/>
             </Col>
-            <Col md={{ span: 2, offset: 13 }}>
+            <Col md={{ span: 2}}>
             <Link to={{pathname:"/message", aboutProps: message.data().idFrom}}>
               <Button variant="outline-dark">Reply</Button>
             </Link>
