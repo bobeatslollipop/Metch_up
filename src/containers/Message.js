@@ -71,6 +71,11 @@ export default function Message(props) {
         return str;
     }
 
+    function nameParse(str){
+      var at = str.indexOf("@");
+      return str.substring(0,at);
+    }
+
     setMails(
       a 
       // temporary  example!!!!  replace with 'a' above, replace {user.id} below
@@ -112,17 +117,17 @@ export default function Message(props) {
         <ListGroup.Item key={message.id}>
         {console.log("Message loaded. id: " +message.id)}
           <Row>
-            <Col md={3} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}> {message.data().idFrom}</Container>
+            <Col md={2} style={{ display: "flex"}}>
+              <Container style={{ display: "flex", alignItems:"center" }}> <strong>{nameParse(message.data().idFrom)}</strong></Container>
               {console.log("inbox message from: "+message.data().idFrom)}
             </Col>
-            <Col md={5} style={{ display: "flex"}}>
+            <Col md={6} style={{ display: "flex"}}>
               <Container style={{ display: "flex", alignItems:"center" }}>{msgParse(message.data().content)}</Container>
             </Col>
             <Col md={2}>
               <ViewMessage key={message.id} id={message.id}/>
             </Col>
-            <Col md={{ span: 2}}>
+            <Col md={2}>
             <Link to={{pathname:"/message", aboutProps: message.data().idFrom}}>
               <Button variant="outline-dark">Reply</Button>
             </Link>
@@ -174,8 +179,8 @@ export default function Message(props) {
   function renderMails(){
     return (
       <Container class="Mail">
+        <h4>Inbox</h4>
         <div class="Inbox">
-          <h5 class="inbox">Inbox </h5>
           <ListGroup>
            {inbox}
           </ListGroup>

@@ -110,7 +110,6 @@ export function changeUserResidence(id, value){
   .catch(err => handleErr(err));
 }
 
-
 //return the classmates from all classess the user is currently enrolled in.
 export async function getMessagesByUser(userId){
   var retDoc = [];
