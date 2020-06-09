@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Col, ListGroup, Container, InputGroup, FormControl} from "react-bootstrap";
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, Button, Col, ListGroup, Container, InputGroup, FormControl, Overlay, Tooltip} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
 import { getUserByClass } from "../firebase"
@@ -11,9 +11,11 @@ export default function ClassModal(props) {
   
     const [show, setShow] = useState(false);
     const [invite, setInvite] = useState(false);
+    const [tipShow, setTipShow] = useState(false);
     const [list, setList] = useState(null);
     const [groupInfo, setGroupInfo] = useState(null); //Acquire group infos
     const [inGroup, setInGroup] = useState(false);
+    const target = useRef(null);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -136,9 +138,16 @@ export default function ClassModal(props) {
               <Button variant="outline-secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="outline-primary" onClick={handleInvite} active={invite}>
+              <Button variant="outline-primary" ref={target} onClick={()=>{handleInvite(); setTipShow(!tipShow);}} active={invite}>
                 Send Invitation
               </Button>
+              <Overlay target={target.current} show={tipShow} placement="bottom">
+                {(props) => (
+                  <Tooltip id="overlay-example" {...props}>
+                    Click over the name to invite.
+                  </Tooltip>
+                )}
+              </Overlay>
               <Button variant="outline-info" onClick={handleChangeState}>
                 Alter Status
               </Button>
