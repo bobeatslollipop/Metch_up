@@ -10,15 +10,17 @@ import { getUserByClass } from "../firebase"
 export default function ClassModal(props) {
   
     const [show, setShow] = useState(false);
+    const [invite, setInvite] = useState(false);
     const [list, setList] = useState(null);
     const [groupInfo, setGroupInfo] = useState(null); //Acquire group infos
     const [inGroup, setInGroup] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleInvite = () => setInvite(!invite);
     const handleChangeState = () => setInGroup(!inGroup);
 
-    useEffect(() => {onLoad()}, []);
+    useEffect(() => {onLoad()}, [handleInvite]);
 
     async function onLoad() {
       await getUserByClass(props.id)
@@ -37,11 +39,13 @@ export default function ClassModal(props) {
           data
           .filter(user => user.id !== props.userId)  //filter the array without current user
           .map((user) => 
-          <LinkContainer key={user.id} to={{pathname:"/message", aboutProps: user.id}}>
-            <ListGroup.Item >
-              {user.id}
-            </ListGroup.Item>
-          </LinkContainer>)
+          <>
+            <LinkContainer key={user.id} to={{ isInvitingProps:invite, pathname:"/message", aboutProps: user.id}}>
+              <ListGroup.Item >
+                {user.id}
+              </ListGroup.Item>
+            </LinkContainer>
+          </>)
         )
       )
         .catch(err => alert(err));
@@ -132,11 +136,9 @@ export default function ClassModal(props) {
               <Button variant="outline-secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Link to={{pathname:"/message"}}>
-                <Button variant="outline-primary">
-                  Send Invitation
-                </Button>
-              </Link>
+              <Button variant="outline-primary" onClick={handleInvite} active={invite}>
+                Send Invitation
+              </Button>
               <Button variant="outline-info" onClick={handleChangeState}>
                 Alter Status
               </Button>
@@ -145,3 +147,5 @@ export default function ClassModal(props) {
         </>
       );
 }
+
+//<Link to={{pathname:"/message"}}>

@@ -22,7 +22,13 @@ export default function Message(props) {
   const sender = props.userEmail;
   //change sender to email later 
   const sendTo = props.location.aboutProps;
-  if (sendTo){
+  const inviting = props.location.isInvitingProps;
+  var text = "Send";
+  console.log(inviting);
+  if (inviting){
+    console.log("inviting "+sendTo);
+    text="Invite";
+  } else if (sendTo){
     console.log("from class modal, the receiver is: "+sendTo);
   } else {
     showlist = true;
@@ -222,8 +228,9 @@ export default function Message(props) {
         <Button
           block
           type="submit"
+          variant={inviting?'info':'primary'}
           isLoading={isLoading}>
-          Send
+          {text}
         </Button>
         </form>
       </div>
