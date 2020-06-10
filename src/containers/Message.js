@@ -7,7 +7,7 @@ import "./Message.css";
 import ViewMessage from "./ViewMessage";
 
 export default function Message(props) {
-//props:   sender,reciever 
+//props:   sender,receiver 
 
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -23,8 +23,11 @@ export default function Message(props) {
   //change sender to email later 
   const sendTo = props.location.aboutProps;
   const inviting = props.location.isInvitingProps;
+
   var text = "Send";
+
   console.log(inviting);
+
   if (inviting){
     console.log("inviting "+sendTo);
     text="Invite";
@@ -65,7 +68,8 @@ export default function Message(props) {
       .then(data => {
         users = data;
       }).catch(err => alert(err));
-      a = a.concat(users);  
+      a = a.concat(users); 
+      console.log(a); 
     }
     
     function msgParse(str){
@@ -84,19 +88,18 @@ export default function Message(props) {
 
     setMails(
       a 
-      // temporary  example!!!!  replace with 'a' above, replace {user.id} below
-      .filter(user => user.id !== sender)
-      .filter((user, index) => a.indexOf(user) == index)
+      .filter(user => user != sender)
+      //=.filter((user, index) => a.indexOf(user) == index)
       .map((user) => 
-      <ListGroup.Item key={user.id}>
+      <ListGroup.Item key={user}>
         <Row>
           <Col md={4} style={{ display: "flex"}}>
             <Container style={{ display: "flex", alignItems:"center" }}>
-            {user.id} 
+            {user} 
             </Container>
           </Col>
           <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
-          <Link to={{pathname:"/message", aboutProps: user.id}}>
+          <Link to={{pathname:"/message", aboutProps: user}}>
             <Button variant="outline-dark">Message</Button>
           </Link>
           
@@ -121,13 +124,12 @@ export default function Message(props) {
       setInbox(
         messages.map((message) =>
         <ListGroup.Item key={message.id}>
-        {console.log("Message loaded. id: " +message.id)}
           <Row>
-            <Col md={2} style={{ display: "flex"}}>
-              <Container style={{ display: "flex", alignItems:"center" }}> <strong>{nameParse(message.data().idFrom)}</strong></Container>
+            <Col md={3} style={{ display: "flex"}}>
+              <Container style={{ display: "flex", alignItems:"center", textOverflow: "ellipsis"}}> <strong>{nameParse(message.data().idFrom)}</strong></Container>
               {console.log("inbox message from: "+message.data().idFrom)}
             </Col>
-            <Col md={6} style={{ display: "flex"}}>
+            <Col md={5} style={{ display: "flex"}}>
               <Container style={{ display: "flex", alignItems:"center" }}>{msgParse(message.data().content)}</Container>
             </Col>
             <Col md={2}>
@@ -154,7 +156,27 @@ export default function Message(props) {
     if (content.trim() === '') {
         return
     }
-    //const timestamp = moment()
+    if(inviting){
+      setIsLoading(true);
+
+    db.collection("Invitations").doc().set({
+        content: content.trim(),
+        //fix later 
+        idFrom: sender,
+        idTo: sendTo, 
+        time:  ''//timestamp
+
+    }).then(() => {
+        console.log("User '" +sender + "' sent invitation'" + sendTo +"'message"+content);
+        props.history.push("/");
+    })
+    .catch(e => {
+        console.error("Error storing data; " + e);
+        alert(e);
+        setIsLoading(false);
+    });
+    }else{
+    // const timestamp = moment()
     //    .valueOf()
     //    .toString()
 
@@ -177,9 +199,7 @@ export default function Message(props) {
         setIsLoading(false);
     });
   }
-
-
-
+  }
 
 
   function renderMails(){
