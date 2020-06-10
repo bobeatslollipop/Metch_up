@@ -88,8 +88,8 @@ export default function Message(props) {
 
     setMails(
       a 
-      .filter(user => user != sender)
-      //=.filter((user, index) => a.indexOf(user) == index)
+      .filter((user, index) =>  index == a.indexOf(user))
+      .filter(user => user !== sender)
       .map((user) => 
       <ListGroup.Item key={user}>
         <Row>
