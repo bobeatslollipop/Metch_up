@@ -22,7 +22,7 @@ export default function ClassModal(props) {
     const handleInvite = () => setInvite(!invite);
     const handleChangeState = () => setInGroup(!inGroup);
 
-    useEffect(() => {onLoad()}, [handleInvite]);
+    useEffect(() => {onLoad()}, [invite]);
 
     async function onLoad() {
       await getUserByClass(props.id)
