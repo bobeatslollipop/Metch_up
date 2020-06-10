@@ -39,12 +39,12 @@ export default function ClassModal(props) {
         setList
         (
           data
-          .filter(user => user.id !== props.userId)  //filter the array without current user
+          .filter(user => user !== props.userId)  //filter the array without current user
           .map((user) => 
           <>
-            <LinkContainer key={user.id} to={{ isInvitingProps:invite, pathname:"/message", aboutProps: user.id}}>
+            <LinkContainer key={user} to={{ isInvitingProps:invite, pathname:"/message", aboutProps: user}}>
               <ListGroup.Item >
-                {user.id}
+                {user}
               </ListGroup.Item>
             </LinkContainer>
           </>)
