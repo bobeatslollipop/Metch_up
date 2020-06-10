@@ -138,13 +138,14 @@ export default function ClassModal(props) {
               <Button variant="outline-secondary" onClick={handleClose}>
                 Close
               </Button>
-              <Button variant="outline-primary" ref={target} onClick={()=>{handleInvite(); setTipShow(!tipShow);}} active={invite}>
+              <Button variant="outline-primary" ref={target} onClick={()=>{handleInvite(); setTipShow(invite? false:!tipShow);}} active={invite}>
                 Send Invitation
               </Button>
-              <Overlay target={target.current} show={tipShow} placement="bottom">
+              <Overlay target={target.current} show={tipShow} placement="bottom" rootClose={true} rootCloseEvent="click" onHide={() => setTipShow(!tipShow)}>
                 {(props) => (
                   <Tooltip id="overlay-example" {...props}>
-                    Click over the name to invite.
+                    <Container>Click over the names to invite. </Container>
+                    <Container>Click me again to exit invite mode.</Container>
                   </Tooltip>
                 )}
               </Overlay>
