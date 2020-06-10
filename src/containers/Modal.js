@@ -144,7 +144,7 @@ export default function ClassModal(props) {
               <Overlay target={target.current} show={tipShow} placement="bottom" rootClose={true} rootCloseEvent="click" onHide={() => setTipShow(!tipShow)}>
                 {(props) => (
                   <Tooltip id="overlay-example" {...props}>
-                    <Container>Click over the names to invite. </Container>
+                    <p>Click over the names to invite. </p>
                     <Container>Click me again to exit invite mode.</Container>
                   </Tooltip>
                 )}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, Button, Col, Row, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom';
 import "./Home.css";
 import { Auth, getUserById, deleteClassFromUser } from "../firebase";
 import ClassModal from './Modal'
@@ -69,7 +70,7 @@ export default function Home(props) {
             <ClassModal key={clsId.toString()} name={searchClassAttribute(clsId)} id={clsId} userId={Auth.currentUser.email}/>
           </Col>
           <Col md={{ span: 2, offset: 6 }}>
-            <Button variant="outline-dark" onClick={()=>handleClick(clsId)}>Delete</Button>
+            <Button variant="outline-dark" onClick={()=>handleClick(clsId)} block>Delete</Button>
           </Col>
         </Row>
       </ListGroup.Item>
@@ -90,11 +91,8 @@ export default function Home(props) {
     var message = <span><strong>Welcome Back, {name}.</strong></span>;
     return (
       <Container className="Welcome">
-        <Row>
             <h1>{message}</h1>
             <h4>Play around with your dashboard to find study groups.</h4>
-        </Row>
-        
         <ListGroup>
           {!isLoading && renderClassList()}
         </ListGroup>
