@@ -91,10 +91,8 @@ export default function Home(props) {
     return (
       <Container className="Welcome">
         <Row>
-          <Col md={10}>
             <h1>{message}</h1>
             <h4>Play around with your dashboard to find study groups.</h4>
-          </Col>
         </Row>
         
         <ListGroup>

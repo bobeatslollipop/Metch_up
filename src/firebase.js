@@ -128,6 +128,22 @@ export async function getMessagesByUser(userId){
   return retDoc;
 }
 
+export async function getInvitationsByUser(userId){
+  var retDoc = [];
+  await db.collection("Invitations").where("idTo", "==", userId)
+      .get()
+      .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+              retDoc.push(doc);
+              console.log(doc.id, " => ", doc.data());
+          });
+      })
+      .catch(function(error) {
+          console.log("Error getting documents: ", error);
+      });
+
+  return retDoc;
+}
 
 
 

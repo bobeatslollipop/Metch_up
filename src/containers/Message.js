@@ -2,7 +2,7 @@ import React, {useState,useEffect } from "react";
 import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
-import { db,getUserByClass,getUserById, getMessagesByUser } from "../firebase";
+import { db,getUserByClass,getUserById, getMessagesByUser, getInvitationsByUser } from "../firebase";
 import "./Message.css";
 import ViewMessage from "./ViewMessage";
 
@@ -110,16 +110,23 @@ export default function Message(props) {
 
 
       var messages = [];
-
+      var invitations = [];
       await getMessagesByUser(sender)
           .then(data => {
             //setMessages(data);
             messages = data;
             console.log("inbox messages loaded in message ");
           }).catch(err => alert(err));
-          
-          
-          console.log("how many messages? " +messages.length);
+      
+      await getInvitationsByUser(sender)
+        .then(data => {
+          //setMessages(data);
+          invitations = data;
+          console.log("invitations loaded in message ");
+        }).catch(err => alert(err));
+
+      console.log("how many invitations? " +invitations.length);
+      console.log("how many messages? " +messages.length);
 
       setInbox(
         messages.map((message) =>
