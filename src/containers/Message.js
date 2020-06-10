@@ -192,8 +192,6 @@ export default function Message(props) {
           </ListGroup>
         </div>
 
-        
-
         <div class="Mail">
           <h4 class="list">Your Classmates </h4>
         </div>
