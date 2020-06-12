@@ -18,7 +18,7 @@ export default function UserCenter(props) {
                   <Nav.Link eventKey="first">User Profile</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="second" >Placeholder</Nav.Link>
+                  <Nav.Link eventKey="second" >Feedback</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                   <Nav.Link eventKey="third" >About Us</Nav.Link>
