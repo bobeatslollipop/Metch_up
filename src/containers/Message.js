@@ -1,6 +1,6 @@
 import React, {useState,useEffect } from "react";
-import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Jumbotron,Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
+
 import { Link } from 'react-router-dom';
 import { db,getUserByClass,getUserById, getMessagesByUser, getInvitationsByUser } from "../firebase";
 import "./Message.css";
@@ -212,20 +212,26 @@ export default function Message(props) {
   function renderMails(){
     return (
       <Container class="Mail">
-        <h4>Inbox</h4>
-        <div class="Inbox">
-          <ListGroup>
-           {inbox}
-          </ListGroup>
-        </div>
-
-        <div class="Mail">
-          <h4 class="list">Your Classmates </h4>
-        </div>
-
-        <ListGroup>
-          {mails}
-        </ListGroup>
+        <Jumbotron style={{marginTop: "25px"}} className="UserCenter">
+        <Row>
+          <Col sm={3} className="NavList" style={{height: "85%"}}>
+            <h4>Inbox</h4>
+            <div class="Inbox">
+               <ListGroup>
+                 {inbox}
+               </ListGroup>
+            </div>
+          </Col>  
+          <Col sm={9}>
+            <div class="Mail">
+              <h4 class="list">Your Classmates </h4>
+            </div>
+            <ListGroup>
+              {mails}
+            </ListGroup>
+          </Col>
+        </Row>
+        </Jumbotron>
       </Container>
 
     );
