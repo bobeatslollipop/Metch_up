@@ -1,6 +1,6 @@
 import React, {useState,useEffect } from "react";
-import { Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Jumbotron,Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
+
 import { Link } from 'react-router-dom';
 import { db,getUserByClass,getUserById, getMessagesByUser, getInvitationsByUser } from "../firebase";
 import "./Message.css";
@@ -93,12 +93,12 @@ export default function Message(props) {
       .map((user) => 
       <ListGroup.Item key={user}>
         <Row>
-          <Col md={4} style={{ display: "flex"}}>
+          <Col md={2} style={{ display: "flex"}}>
             <Container style={{ display: "flex", alignItems:"center" }}>
-            {user} 
+            {nameParse(user)} 
             </Container>
           </Col>
-          <Col md={{ span: 2, offset: 6 }} style={{ display: "flex"}}>
+          <Col md={{ span: 2, offset: 4 }} style={{ display: "flex"}}>
           <Link to={{pathname:"/message", aboutProps: user}}>
             <Button variant="outline-dark">Message</Button>
           </Link>
@@ -212,20 +212,41 @@ export default function Message(props) {
   function renderMails(){
     return (
       <Container class="Mail">
-        <h4>Inbox</h4>
-        <div class="Inbox">
-          <ListGroup>
-           {inbox}
-          </ListGroup>
-        </div>
-
-        <div class="Mail">
-          <h4 class="list">Your Classmates </h4>
-        </div>
-
-        <ListGroup>
-          {mails}
-        </ListGroup>
+        <Jumbotron style={{marginTop: "25px"}} className="UserCenter">
+        <Row>
+          <Col md="auto" className="mails" style={{height: "85%"}}>
+          <div class="Mail">
+              <h4 class="list">Your Classmates </h4>
+            </div>
+            <ListGroup>
+              {mails}
+            </ListGroup>
+          </Col>  
+          <Col>
+            <Row>
+            <h4>Inbox</h4>
+            </Row>
+            <Row>
+              <div class="Inbox">
+                <ListGroup>
+                  {inbox}
+                </ListGroup>
+              </div>
+            </Row>
+            <Row>
+            <h4> Invitations</h4>
+            </Row>
+            <Row>
+              <div class="invitations">
+                <ListGroup>
+                  {inbox}
+                </ListGroup>
+              </div>
+            </Row>
+            
+          </Col>
+        </Row>
+        </Jumbotron>
       </Container>
 
     );
