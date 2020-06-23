@@ -1,6 +1,5 @@
 import React, {useState,useEffect } from "react";
 import { Jumbotron,Form,Container, ListGroup, Col, Row, Button } from "react-bootstrap";
-
 import { Link } from 'react-router-dom';
 import { db,getUserByClass,getUserById, getMessagesByUser, getInvitationsByUser } from "../firebase";
 import "./Message.css";
@@ -16,11 +15,11 @@ export default function Message(props) {
   var showlist = false;
   const [mails, setMails] = useState(null);
   const [inbox, setInbox] = useState([]);
+  const [invitation,setInvitation] = useState([]);
 
   //sender passed by App.js
   //sendTo passed by Modal.js
   const sender = props.userEmail;
-  //change sender to email later 
   const sendTo = props.location.aboutProps;
   const inviting = props.location.isInvitingProps;
 
@@ -42,7 +41,7 @@ export default function Message(props) {
   useEffect(() => {onLoad()}, []);
   async function onLoad() {
     var classes = [];
-    await getUserById("tonyluo2023@u.northwestern.edu")
+    await getUserById(sender)
     .then(data => {
       classes = data.classes;
       console.log("classes loaded in message with "+classes.length);
@@ -50,17 +49,10 @@ export default function Message(props) {
     }).catch(err => alert(err));
 
     // array of user object
-    var a = [];
-    
-    // await Promise.all(classes.map(async (clsId) =>{ 
-    //   console.log("im here!!!!!");
-    //   await getUserByClass(clsId)
-    //   .then(data => {
-    //     setUsers(data);
-    //     a = a.concat(users);  
-    //   }).catch(err => alert(err));
-    // }));
+    var classmates = [];
+
     console.log("classes length is "+classes.length);
+    //collect all the users in the classes
     for(let i =0;i<classes.length;i++){
       console.log("add class id "+classes[i]+"to the list.");
       var users = [];
@@ -68,8 +60,8 @@ export default function Message(props) {
       .then(data => {
         users = data;
       }).catch(err => alert(err));
-      a = a.concat(users); 
-      console.log(a); 
+      classmates = classmates.concat(users); 
+      console.log(classmates); 
     }
     
     function msgParse(str){
@@ -87,8 +79,8 @@ export default function Message(props) {
     }
 
     setMails(
-      a 
-      .filter((user, index) =>  index == a.indexOf(user))
+      classmates 
+      .filter((user, index) =>  index == classmates.indexOf(user))
       .filter(user => user !== sender)
       .map((user) => 
       <ListGroup.Item key={user}>
@@ -149,6 +141,32 @@ export default function Message(props) {
             </Col>
           </Row>
       </ListGroup.Item>
+        )
+      )
+
+      setInvitation(
+        invitations.map((invitation) =>
+        <ListGroup.Item key={invitation.id}>
+        <Row>
+          <Col md={3} style={{ display: "flex"}}>
+            <Container style={{ display: "flex", alignItems:"center", textOverflow: "ellipsis"}}> <strong>{nameParse(invitation.data().idFrom)}</strong></Container>
+            {console.log("inbox message from: "+invitation.data().idFrom)}
+          </Col>
+          <Col md={3} style={{ display: "flex"}}>
+            <Container style={{ display: "flex", alignItems:"center" }}>{msgParse(invitation.data().content)}</Container>
+          </Col>
+          <Col md={2}>
+            <ViewMessage key={invitation.id} id={invitation.id}/>
+          </Col>
+          <Col md={2}>
+              <Button variant="outline-dark" >Accept</Button>
+            </Col>
+            <Col md={2}>
+              <Button variant="outline-dark" >Reject</Button>
+            </Col>
+        </Row>
+    </ListGroup.Item>
+
         )
       )
 
@@ -224,20 +242,20 @@ export default function Message(props) {
           </Col>  
           <Col>
             <Row>
-            <h4>Inbox</h4>
-            </Row>
-            <Row>
-              <div class="Inbox">
-                <ListGroup>
-                  {inbox}
-                </ListGroup>
-              </div>
-            </Row>
-            <Row>
             <h4> Invitations</h4>
             </Row>
             <Row>
               <div class="invitations">
+                <ListGroup>
+                  {invitation}
+                </ListGroup>
+              </div>
+            </Row>
+            <Row>
+            <h4>Inbox</h4>
+            </Row>
+            <Row>
+              <div class="Inbox">
                 <ListGroup>
                   {inbox}
                 </ListGroup>
