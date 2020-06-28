@@ -145,7 +145,49 @@ export async function getInvitationsByUser(userId){
   return retDoc;
 }
 
+export function resolveInvitation(accepted, userId, groupId, invitationId){
+  if(accepted){
+    addUserToGroup(userId, groupId).then(console.log("Invitation Accepted"));
+  } else {
+    db.collection("Invitations").doc(invitationId).delete()
+    .then(alert("Invitation"+invitationId+"successfully removed!"))
+    .catch(err => handleErr(err));
+  }
+}
 
+export function refreshGroupInvitation(userId, classId){
+  db.collection("Invitations").where("class", "==", classId).where("to", "array-contains", userId).get()
+  .then(function(querySnapshot){
+    querySnapshot
+    .forEach((doc)=>
+    {
+      db.collection("Invitations").doc(doc).delete()
+      .then(console.log("Cleaning Invitation from the same class"))
+      .catch(err => handleErr(err));
+    })
+  })
+  .catch(err => handleErr(err));
+}
+
+export async function addUserToGroup(userId, groupId){
+  await db.collection("Users").doc(groupId).update({
+    peers: firebase.firestore.FieldValue.arrayUnion(userId)
+  }).then(alert("Group successfully added!"))
+  .catch(err => handleErr(err));
+}
+
+export async function inGroup(userId, classId){
+  await db.collection("Groups").where("class", "==", classId).get()
+  .then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc){
+    if (doc.data().includes(userId)){
+      console.log("Found User is already in Group for class"+classId);
+      return doc.data();
+    }
+  });
+  return false;
+})
+}
 
 // handles errors with custom messages
 export function handleErr(err) {
