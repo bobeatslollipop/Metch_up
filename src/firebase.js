@@ -169,10 +169,17 @@ export function refreshGroupInvitation(userId, classId){
   .catch(err => handleErr(err));
 }
 
-export async function addUserToGroup(userId, groupId){
-  await db.collection("Users").doc(groupId).update({
+export function addUserToGroup(userId, groupId){
+  await db.collection("Groups").doc(groupId).update({
     peers: firebase.firestore.FieldValue.arrayUnion(userId)
   }).then(alert("Group successfully added!"))
+  .catch(err => handleErr(err));
+}
+
+export function deleteUserFromGroup(userId, groupId){
+  db.collection("Groups").doc(groupId).update({
+    peers: firebase.firestore.FieldValue.arrayRemove(userId)
+  }).then(alert("Delete from Group!"))
   .catch(err => handleErr(err));
 }
 
